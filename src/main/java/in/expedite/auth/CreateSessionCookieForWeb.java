@@ -8,27 +8,31 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
 import in.expedite.entity.MyUser;
 
 @Component
-public class CreateSessionCookieForWeb extends SavedRequestAwareAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class CreateSessionCookieForWeb extends SimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 	@Autowired
 	private JwtTokenValidator jwtTokenValidator;
 	
+	private static final Logger LOG = LoggerFactory.getLogger(CreateSessionCookieForWeb.class); 
 	//private RequestCache requestCache = new HttpSessionRequestCache();
 	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		MyUser currentUser=(MyUser) authentication.getPrincipal();
-		
+		LOG.info("Creating JWT cookie");
 		final String cookieName = "Authorization";
 	    final String cookieValue = "Bearer " + jwtTokenValidator.generateToken(currentUser);  // you could assign it some encoded value
 	    final Boolean useSecureCookie = new Boolean(false);

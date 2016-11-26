@@ -32,13 +32,13 @@ app.controller('ConfigController', function($scope,$http,$log) {
 	    $http({
 	        method : "GET",
 	        url : url
-	    }).then(function mySuccess(response) {
+	    }).then(function success(response) {
 	    	$log.log(response.data)
 	        $scope.configurationList = response.data;
-	    }, function myError(response) {
+	    }, function failure(response) {
 	        $log.error(response.status)
              $scope.showerror=true;
-             $scope.error=resp.data.message;
+             $scope.error=response.data.message;
 	    });
     }
 

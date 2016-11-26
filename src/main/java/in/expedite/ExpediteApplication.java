@@ -19,14 +19,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import in.expedite.auth.CreateSessionCookieForWeb;
+import in.expedite.auth.FailureHandler;
 import in.expedite.auth.JwtAuthenticationFilter;
 import in.expedite.auth.JwtAuthenticationProvider;
 import in.expedite.auth.JwtAuthenticationSuccessHandler;
@@ -53,6 +54,7 @@ public class ExpediteApplication extends SpringBootServletInitializer  {
 	 public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/login").setViewName("login");
 	 }
+	
    }
    
 	@Configuration
@@ -64,6 +66,9 @@ public class ExpediteApplication extends SpringBootServletInitializer  {
 		@Autowired
 		CreateSessionCookieForWeb createSessionCookieForWeb;
 		
+		
+		@Autowired
+		FailureHandler failureHandler;
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 		
@@ -71,21 +76,21 @@ public class ExpediteApplication extends SpringBootServletInitializer  {
 				.formLogin()
 				.loginPage("/login")
 				.defaultSuccessUrl("/index.html", true)
-				.failureForwardUrl("/error.html")
 				.successHandler(createSessionCookieForWeb)
+				.failureHandler(failureHandler)
 				.permitAll()
 			.and()
 				.authorizeRequests()
 				.antMatchers("/login","/pages/**").permitAll()
 				.anyRequest().authenticated()
 			.and()
-				.logout().permitAll();
+				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").permitAll();
 	
 		}
 
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-			 auth.userDetailsService(userDetailsService).passwordEncoder(bcryptEncoder());
+			 auth.userDetailsService(userDetailsService);//.passwordEncoder(bcryptEncoder());
 		}
 		
 		@Bean

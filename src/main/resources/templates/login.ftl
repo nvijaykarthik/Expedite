@@ -58,7 +58,6 @@
 	   		<ul><li>There was a problem logging in. Please try again.</li>
 	   		<li>Wrong Username/Password </li>
 	   		</ul>
-	   		
 		</div>
 	</#if>
 	
@@ -95,7 +94,9 @@
 		<script src="js/angular.min.js"></script>
 		<script src="js/angular-route.min.js"></script>
 		<script src="js/angular-resource.min.js"></script>
+	    <script src="js/expedite-config.js"></script>
 		<script src="js/expedite.js"></script>
+
 
 
 <script type="text/javascript">
