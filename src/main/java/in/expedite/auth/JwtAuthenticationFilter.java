@@ -18,7 +18,11 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
 import io.jsonwebtoken.JwtException;
-
+/**
+ * Extending the spring authentication processing filter to extract the jwt to user.
+ * @author vijaykarthik
+ *
+ */
 public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter{
 	
      private static final Logger LOG = LoggerFactory.getLogger(JwtAuthenticationFilter.class);

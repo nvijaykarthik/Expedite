@@ -2,7 +2,7 @@ package in.expedite.utils;
 
 import org.springframework.http.HttpStatus;
 /**
- * This class is handle the exception and custome messages.
+ * This class is handle the exception and custom messages.
  * @author Vijaykarthik n 
  *
  */

@@ -2,7 +2,7 @@ package in.expedite.utils;
 
 /**
  * Created by vijaykarthik on 28/8/16.
- * general class to handle the success response
+ * general class to handle the Json response
  */
 public class ExJsonResponse {
 

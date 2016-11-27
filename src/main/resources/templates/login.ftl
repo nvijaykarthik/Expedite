@@ -13,7 +13,7 @@
 
 	<!-- Pixel Admin's stylesheets -->
 	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<link href="css/pixel-admin.min.css" rel="stylesheet" type="text/css">
+	<link href="css/expedite.min.css" rel="stylesheet" type="text/css">
 	<link href="css/pages.min.css" rel="stylesheet" type="text/css">
 	<link href="css/rtl.min.css" rel="stylesheet" type="text/css">
 	<link href="css/themes.min.css" rel="stylesheet" type="text/css">

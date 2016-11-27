@@ -2,6 +2,11 @@ package in.expedite.utils;
 
 import java.util.Map;
 
+/**
+ * Pojo class to map the exception with handler
+ * @author vijaykarthik
+ *
+ */
 public class ExceptionHandlerMapping {
 
 	private Map<Class<? extends Exception>,ExceptionErrorMapping> exceptionHandler;

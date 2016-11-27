@@ -24,7 +24,14 @@ public class UserDetailsService implements org.springframework.security.core.use
 	@Autowired
     private UserService userService;
 	
+	/**
+	 * Logging 
+	 */
 	private static final Logger LOG = LoggerFactory.getLogger(UserDetailsService.class.getName());
+	
+	/**
+	 * getting user details from Database   
+	 */
 	
     @Transactional(readOnly=true)
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
@@ -40,7 +47,11 @@ public class UserDetailsService implements org.springframework.security.core.use
             user.getState().equals("Active"), true, true, true, getGrantedAuthorities(user),user.getFirstName(),user.getSecondName(),user.getEmail());
     }
  
-     
+     /**
+      * 
+      * @param user
+      * @return List of authorities 
+      */
     private List<GrantedAuthority> getGrantedAuthorities(User user){
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
          

@@ -18,7 +18,11 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 
 import in.expedite.entity.MyUser;
-
+/**
+ * Custom auth success handler to create cookie to handle ReST .  
+ * @author vijaykarthik
+ *
+ */
 @Component
 public class CreateSessionCookieForWeb extends SimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
@@ -27,7 +31,9 @@ public class CreateSessionCookieForWeb extends SimpleUrlAuthenticationSuccessHan
 	
 	private static final Logger LOG = LoggerFactory.getLogger(CreateSessionCookieForWeb.class); 
 	//private RequestCache requestCache = new HttpSessionRequestCache();
-	
+	/**
+	 * Override the existing function to add jwt as cookie
+	 */
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
