@@ -80,8 +80,23 @@ var url="/resource/config";
                             </td>
 						</tr>
 					</tbody>
+					<tfoot>
+					<div class="pagination">
+		            <ul>
+		              <li ng-class="prevPageDisabled()">
+		                <a href ng-click="prevPage()">« Prev</a>
+		              </li>
+		              <li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
+		                <a href="#">{{n+1}}</a>
+		              </li>
+		              <li ng-class="nextPageDisabled()">
+		                <a href ng-click="nextPage()">Next »</a>
+		              </li>
+		            </ul>
+		          </div>
+				</tfoot>
 				</table>
-			  <ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" max-size="maxSize"></ul>
+			  
 			</div>
 	</div>
 </div>
