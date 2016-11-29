@@ -1,23 +1,23 @@
 <ul class="breadcrumb breadcrumb-page">
 			<div class="breadcrumb-label text-light-gray">You are here: </div>
-			<li><a href="index.html#">Home</a></li>
-			<li class="active"><a href="index.html#">Configuration</a></li>
+			<li><a>Home</a></li>
+			<li><a>Administration</a></li>
+			<li class="active"><a>Role</a></li>
 		</ul>
 		<div class="page-header">
-			
 			<div class="row">
 				<!-- Page header, center on small screens -->
 				<h1 class="col-xs-12 col-sm-4 text-center text-left-sm"><i class="fa fa-dashboard page-header-icon"></i>&nbsp;&nbsp;Configuration</h1>
-				<div class="col-xs-12 col-sm-8">Property once added cannot be deleted , it can only be modify </div>
+				<div class="col-xs-12 col-sm-8">Roles once added cannot be deleted , It can only be deactivated </div>
 			</div>
 		</div> <!-- / .page-header -->
 		
-<main ng-controller="ConfigController">
+<main ng-controller="roleController">
 
 <script>
-var url="/resource/config";
+var url="/resource/role";
 </script>
-<div id="configurator">
+<div id="role">
 <div class="alert alert-danger alert-dismissible" role="alert" ng-show="showerror">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     {{error}}
@@ -28,21 +28,21 @@ var url="/resource/config";
 </div>
 <div class="col-md-4">
 	<div class="panel panel-info panel-dark">
-		<div class="panel-heading"><h3 class="panel-title">Add Configuration</h3></div>
+		<div class="panel-heading"><h3 class="panel-title">Add Role</h3></div>
 		<div class="panel-body">
    		<form class="form-horizontal">
 			<div class="form-group">
-				<label for="disabledinput" class="control-label">key</label>
+				<label for="disabledinput" class="control-label">Role</label>
 				<div>
-					<input type="text" class="form-control" id="key" placeholder="Key" ng-model="formData.key">
-					<span class="help-block">Allowed String (a-z , A-Z, 0-9 ,_) </span>
+					<input type="text" class="form-control" id="roleCode" placeholder="Role Code" ng-model="formData.roleCode" capitalize>
+					<span class="help-block">In Capital Letters Allowed String (A-Z,0-9,_) </span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="inputPassword" class="control-label">value</label>
+				<label for="inputPassword" class="control-label">Description</label>
 				<div>
-					<input type="text" class="form-control" id="value" placeholder="Value" ng-model="formData.value">
-					<span class="help-block">Any values Allowed</span>
+					<input type="text" class="form-control" id="description" placeholder="Role Description" ng-model="formData.roleDescription">
+					<span class="help-block">Some description on Role</span>
 				</div>
 			</div>
 			 <button class="btn btn-primary" ng-click="add()"><span class=" fa fa-plus">&nbsp</span>Add</button>
@@ -52,7 +52,7 @@ var url="/resource/config";
 </div>
 <div class="col-md-8">
 <div class="panel panel-success panel-dark">
-		<div class="panel-heading"><h3 class="panel-title">View Configuration</h3></div>
+		<div class="panel-heading"><h3 class="panel-title">View Available Roles</h3></div>
 		<div class="panel-body">
 				<table class="table">
 					<thead>
@@ -62,38 +62,26 @@ var url="/resource/config";
                                     <span class="fa fa-refresh"></span>&nbsp;
                                 </button>
                             </th>
-							<th>Key</th>
-							<th>Value</th>
-							<th>Save</th>
+							<th>Role Code</th>
+							<th>Role Description</th>
+							<th>Activate/DeActivate</th>
 						</tr>
 					</thead>
 					<tbody>
 					<input type="text" ng-model="searchKeyword" class="form-control ng-valid ng-dirty" id="searchTable" placeholder="Search table"  >
-						<tr ng-repeat="config in configurationList | filter: searchKeyword ">
-							<td>{{config.id}}</td>
-							<td>{{config.key}}</td>
-							<td><input type="text" class="form-control" placeholder="Value" ng-model="config.value"></td>
+						<tr ng-repeat="role in roleList | filter: searchKeyword ">
+							<td>{{role.id}}</td>
+							<td>{{role.roleCode}}</td>
+							<td>{{role.roleDescription}}</td>
 							<td>
-							<button type="button" class="btn  btn-info" ng-click="modify(config)">
-                                <span class="fa fa-floppy-o"></span>&nbsp;
+							<button type="button" class="btn  btn-info" ng-click="toggle(role)">
+							<span class=" fa fa-exchange">&nbsp</span>
+								{{role.status}}
                              </button>
                             </td>
 						</tr>
 					</tbody>
 				</table>
-			      <div>
-		            <ul class="pagination">
-		              <li ng-class="prevPageDisabled()">
-		                <a href ng-click="prevPage()">« Prev</a>
-		              </li>
-		              <li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
-		                <a class="pointer">{{n+1}}</a>
-		              </li>
-		              <li ng-class="nextPageDisabled()">
-		                <a href ng-click="nextPage()">Next »</a>
-		              </li>
-		            </ul>
-		          </div>
 			</div>
 	</div>
 </div>

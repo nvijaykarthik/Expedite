@@ -1,6 +1,6 @@
 package in.expedite.entity;
 
-public enum UserState {
+public enum State {
 	
 	ACTIVE("Active"),
 	INACTIVE("Inactive"),
@@ -9,7 +9,7 @@ public enum UserState {
 	
 	private String state;
 	
-	private UserState(final String state){
+	private State(final String state){
 		this.state = state;
 	}
 	

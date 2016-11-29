@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import in.expedite.entity.User;
-import in.expedite.entity.UserState;
+import in.expedite.entity.State;
 import in.expedite.repository.UserRepository;
 import in.expedite.utils.CollectionUtil;
 
@@ -65,7 +65,7 @@ public class UserService {
 	public User deActivate(User user)
 	{
 		log.debug("Deactivating user "+user);
-		user.setState(UserState.INACTIVE.toString());
+		user.setState(State.INACTIVE.toString());
 		return userRepository.save(user); 
 	}
 
@@ -101,10 +101,10 @@ public class UserService {
 	 */
 	public List<User> getUsers(){
 		log.debug("Getting all the Users");
-		List<User> users=CollectionUtil.toList(userRepository.findAll());
+		List<User> users=userRepository.findAll();
 		// PageRequest request =
 		//            new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "firstName");
-
+		log.trace("User List :" +users);
 		return users; 
 	}
 	

@@ -51,7 +51,7 @@ public class User {
 
 	@NotEmpty
 	@Column(name="STATE", nullable=false)
-	private String state=UserState.ACTIVE.getState();
+	private String state=State.ACTIVE.getState();
 	
 	@OneToMany(mappedBy="user")
 	private	Set<UserRole> userRole = new HashSet<>();
