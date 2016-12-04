@@ -10,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import in.expedite.entity.AccessCode;
 import in.expedite.entity.Configuration;
 import in.expedite.entity.Role;
+import in.expedite.entity.RoleAccessXref;
 import in.expedite.service.RoleService;
 import in.expedite.utils.ExJsonResponse;
 
@@ -45,5 +48,24 @@ public class RoleController {
 		rs.toggleStatusRole(role);
     	return new ExJsonResponse(0,"Sucessfully Activated");
 	}
+	
+	@RequestMapping(path="/accessRef",produces="application/json",method=RequestMethod.GET)
+	public List<AccessCode> getRoleAccessRef(@Valid @RequestParam String roleCode){
+		LOG.info("Getting Access List for the Role" + roleCode);
+		return rs.getRoleAccessXref(roleCode);
+	}
 
+	@RequestMapping(path="/accessRef",produces="application/json",method=RequestMethod.POST)
+	public ExJsonResponse addRoleAccessRef(@Valid @RequestBody RoleAccessXref ref){
+		LOG.info("Getting Access List for the Role" + ref);
+		rs.addRoleAccess(ref);
+		return new ExJsonResponse(0,"Sucessfully Added");
+	}
+	
+	@RequestMapping(path="/accessRef",produces="application/json",method=RequestMethod.DELETE)
+	public ExJsonResponse delRoleAccessRef(@Valid @RequestBody RoleAccessXref ref){
+		LOG.info("Getting Access List for the Role" + ref);
+		rs.deleteRoleAccess(ref); 
+		return new ExJsonResponse(0,"Sucessfully Deleted");
+	}
 }

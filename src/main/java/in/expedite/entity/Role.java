@@ -33,9 +33,7 @@ public class Role {
 	@Column(nullable=false)
 	private String status=State.ACTIVE.toString();
 
-	@OneToMany(mappedBy="role")
-	Set<RoleAccessXref> roleAccessXref=new HashSet<>();
-	
+
 	public Long getId() {
 		return id;
 	}

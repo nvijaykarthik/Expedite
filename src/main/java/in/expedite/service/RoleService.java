@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import in.expedite.entity.AccessCode;
 import in.expedite.entity.Role;
 import in.expedite.entity.RoleAccessXref;
 import in.expedite.entity.State;
@@ -30,6 +31,9 @@ public class RoleService {
 	
 	@Autowired
 	RoleAccessXrefRepository raxRepo;
+	
+	@Autowired
+	AccessCodeService accessCodeService;
 	
 	private static final Logger LOG = LoggerFactory.getLogger(RoleService.class);
 	
@@ -89,6 +93,21 @@ public class RoleService {
 	 */
 	public void deleteRoleAccess(RoleAccessXref roleAccess){
 		LOG.debug("Removing Role Access : "+ roleAccess);
-		raxRepo.delete(roleAccess);
+		raxRepo.delete(roleAccess.getRoleCode(),roleAccess.getAccessCode());
+	}
+	
+	public List<AccessCode> getRoleAccessXref(String roleCode){
+		LOG.debug("Getting Access Role Reference ");
+		List<RoleAccessXref> ref=raxRepo.findByRoleCode(roleCode);
+		List<AccessCode> access=accessCodeService.getAccessCodes();
+		access.forEach(acc->{
+			ref.forEach(re->{
+				if(acc.getAccessCode().equalsIgnoreCase(re.getAccessCode())){
+					acc.setActive(true);
+				}
+			}); 
+		});
+		
+		return access;
 	}
 }

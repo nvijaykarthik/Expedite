@@ -16,9 +16,8 @@ public class RoleAccessXref {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "roleCode", nullable = false)
-	private Role role;
+	@Column(nullable=false)
+	private String roleCode;
 	
 	@Column(nullable=false)
 	private String accessCode;
@@ -31,14 +30,7 @@ public class RoleAccessXref {
 		this.id = id;
 	}
 
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
+	
 	public String getAccessCode() {
 		return accessCode;
 	}
@@ -47,9 +39,18 @@ public class RoleAccessXref {
 		this.accessCode = accessCode;
 	}
 
+	public String getRoleCode() {
+		return roleCode;
+	}
+
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
+	}
+
 	@Override
 	public String toString() {
-		return "RoleAccessXref [id=" + id + ", role=" + role + ", accessCode=" + accessCode + "]";
+		return "RoleAccessXref [id=" + id + ", roleCode=" + roleCode + ", accessCode=" + accessCode + "]";
 	}
+
 	
 }

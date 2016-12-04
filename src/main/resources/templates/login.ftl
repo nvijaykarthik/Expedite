@@ -90,7 +90,7 @@
 <!-- Expedite's javascripts -->
 		<script src="js/jquery-1.10.2.min.js"></script> 
 		<script src="js/bootstrap.min.js"></script>
-		<script src="js/pixel-admin.min.js"></script>
+		<script src="js/expedite-admin.min.js"></script>
 		<script src="js/angular.min.js"></script>
 		<script src="js/angular-route.min.js"></script>
 		<script src="js/angular-resource.min.js"></script>

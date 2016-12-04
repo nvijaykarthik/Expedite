@@ -132,7 +132,7 @@ app.controller('ConfigController', function($scope,$http,$log) {
 
 app.controller('roleController', function($scope,$http,$log) {
 	$scope.formData = {};
-	
+	$scope.selection=[];
     $scope.resetPage=function(){
             $scope.showsucess=false;
             $scope.showerror=false;
@@ -201,6 +201,80 @@ app.controller('roleController', function($scope,$http,$log) {
     }
        $scope.resetPage();
        $scope.refresh();
+       $scope.configAccess=function(role){
+    	   $scope.selectedRole=role;
+    	   $http({
+    	         method  : 'GET',
+    	         url     : url+"/accessRef",
+    	         params  : {"roleCode": role.roleCode},
+    	         headers : {'Content-Type': 'application/json'}
+    	        }).then(function success(resp){
+    	        	
+    	                $log.info(resp.status)
+    	                $scope.selection=[];
+    	                $scope.accessList=resp.data
+    	                angular.forEach($scope.accessList,function(access,index){
+    	                	//$log.info(access.accessCode);
+    	                	if(access.active){
+    	                		$log.debug("Active:"+access.accessCode);
+    	                		$scope.selection.push(access.accessCode)
+    	                	}
+    	                });
+    	                },
+    	                function failure(resp){
+    	                $log.error(resp.status)
+    	                 $scope.showerror=true;
+    	                 $scope.error="Error retrieving Access code";
+    	                });
+       }
+       
+       
+		// toggle selection for a given 
+		$scope.toggleSelection = function toggleSelection(accessCode) {
+	    var idx = $scope.selection.indexOf(accessCode);
+	   	 $log.debug("idx:"+idx);
+	    // is currently selected
+    	 $log.debug("TOGGLE:"+accessCode);
+    	    $scope.roleAcc={};
+	    	$scope.roleAcc["roleCode"]=$scope.selectedRole.roleCode;
+	    	$scope.roleAcc["accessCode"]=accessCode;
+	    	 $log.debug("TOGGLE:"+$scope.roleAcc);
+	    	 
+	    if (idx > -1) {
+	    	//remove from DB
+
+	    	 $http({
+	             method  : 'DELETE',
+	             url     : url+"/accessRef",
+	             data    : $scope.roleAcc,
+	             headers : {'Content-Type': 'application/json'}
+	            }).then(function success(resp){
+	                    $scope.selection.splice(idx, 1);
+	                    },
+	                    function failure(resp){
+	                     $log.error(resp.status)
+	                     $scope.showerror=true;
+	                     $scope.error=resp.data.message;
+	                    });
+	     
+	    }else {
+	    	//Add to DB
+	    	 $http({
+	             method  : 'POST',
+	             url     : url+"/accessRef",
+	             data    : $scope.roleAcc,
+	             headers : {'Content-Type': 'application/json'}
+	            }).then(function success(resp){
+	            	$scope.selection.push(accessCode);
+                    },
+                    function failure(resp){
+                     $log.error(resp.status)
+                     $scope.showerror=true;
+                     $scope.error=resp.data.message;
+                    });
+	      
+	    }
+	  };
 });
 
 //accessCodes
