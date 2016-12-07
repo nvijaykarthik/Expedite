@@ -79,7 +79,7 @@ var url="/resource/role";
 								{{role.status}}
                              </button>
                              &nbsp;&nbsp;
-                             <button type="button" class="btn  btn-info" ng-click="configAccess(role)">
+                             <button type="button" class="btn  btn-info" ng-click="configAccess(role)" data-toggle="modal" data-target="#roleAccesslist">
 							<span class=" fa fa-cog">&nbsp</span>
 								Config Access
                              </button>
@@ -92,11 +92,14 @@ var url="/resource/role";
 </div>
 
 </div>
-<div id="roleAccesslist" class="col-lg-12">
-<div class="panel panel-warning panel-dark">
-		<div class="panel-heading">
-			<h3 class="panel-title">Access to the role {{selectedRole.roleDescription}}</h3></div>
-		<div class="panel-body">
+<div id="roleAccesslist" class="modal fade" role="dialog">
+ <div class="modal-dialog">
+  <div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h3 class="modal-title">Access to the role :  {{selectedRole.roleDescription}}</h3>
+		</div>
+		<div class="modal-body">
 		<ul class="list-group">
 		 <li class="list-group-item" ng-repeat="access in accessList" >
 		  <input id="{{access.accessCode}}" type="checkbox" value="{{access.accessCode}}" ng-checked="selection.indexOf(access.accessCode) > -1" ng-click="toggleSelection(access.accessCode)" />
@@ -105,6 +108,10 @@ var url="/resource/role";
 		 </li>
 		 </ul>
 		</div>
-</div>
+		<div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+  </div>
+ </div>
 </div>
 </main>
