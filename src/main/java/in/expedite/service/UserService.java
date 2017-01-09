@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -19,97 +20,131 @@ import org.springframework.stereotype.Component;
 import in.expedite.entity.User;
 import in.expedite.entity.State;
 import in.expedite.repository.UserRepository;
+import in.expedite.repository.UserSpecificationsBuilder;
 import in.expedite.utils.CollectionUtil;
 
 @Component
 @Transactional
 public class UserService {
-	
-	private static final Logger log = LoggerFactory.getLogger(UserService.class);
-	
+
+	private static final Logger log = LoggerFactory.getLogger(UserServiceTest.class);
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	@Qualifier("bcryptEncoder")
 	PasswordEncoder encoder;
-	
+
 	@Value("${expedite.page.size}")
 	private Integer pageSize;
-	
+
 	/**
 	 * Add new user
+	 * 
 	 * @param user
 	 */
-	public void addUser(User user){
-		log.debug("Adding new user "+user);
+	public void addUser(User user) {
+		log.debug("Adding new user " + user);
 		user.setPassword(encoder.encode(user.getPassword()));
 		userRepository.save(user);
 	}
-	
+
 	/**
 	 * get user by user id
+	 * 
 	 * @param userId
 	 * @return
 	 */
-	public User getUser(String userId){
-		log.debug("Get user by user id "+userId);
+	public User getUser(String userId) {
+		log.debug("Get user by user id " + userId);
 		return userRepository.findUserIdQuery(userId);
 	}
 
 	/**
 	 * Deactivating user
+	 * 
 	 * @param user
 	 * @return
 	 */
-	public User deActivate(User user)
-	{
-		log.debug("Deactivating user "+user);
+	public User deActivate(User user) {
+		log.debug("Deactivating user " + user);
 		user.setState(State.INACTIVE.toString());
-		return userRepository.save(user); 
+		return userRepository.save(user);
 	}
 
 	/**
-	 * Resetting password 
+	 * Resetting password
+	 * 
 	 * @param userId
 	 * @return
 	 */
-	public User resetPassword(String userId)
-	{
+	public User resetPassword(String userId) {
 		User user = new User();
-		user.setUserId(userId);		
+		user.setUserId(userId);
 		user.setPassword(encoder.encode("password"));
-		log.debug("Resetting Password "+user);
-		return userRepository.save(user); 
+		log.debug("Resetting Password " + user);
+		return userRepository.save(user);
 	}
-	
+
 	/**
 	 * Updating User
+	 * 
 	 * @param user
 	 * @return
 	 */
-	public User updateUser(User user)
-	{
-		log.debug("Resetting Password "+user);
+	public User updateUser(User user) {
+		log.debug("Resetting Password " + user);
 		user.setPassword(encoder.encode(user.getPassword()));
-		return userRepository.save(user); 
+		return userRepository.save(user);
 	}
-	
+
 	/**
 	 * get list of all users.
+	 * 
 	 * @return
 	 */
-	public List<User> getUsers(){
+	public Iterable<User> getUsers(Integer pageNumber) {
 		log.debug("Getting all the Users");
-		List<User> users=userRepository.findAll();
+		PageRequest pg = new PageRequest(pageNumber, pageSize);
+		Iterable<User> users = userRepository.findAll(pg);
 		// PageRequest request =
-		//            new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "firstName");
-		log.trace("User List :" +users);
-		return users; 
+		// new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC,
+		// "firstName");
+		log.trace("User List :" + users);
+		return users;
 	}
-	
-	public Long getCount(){
+
+	public Long getCount() {
 		log.debug("Getting total Users");
-		return userRepository.count(); 
+		return userRepository.count();
 	}
+
+	public Iterable<User> searchUser(String userId, String firstName, String secondName, String email, String state,
+			Integer pageNumber) {
+		log.debug("Getting all the Users based on the values : " + userId + "," + firstName + "," + secondName + ","
+				+ email + "," + state + "," + pageNumber);
+		PageRequest pg = new PageRequest(pageNumber, pageSize);
+		UserSpecificationsBuilder builder = new UserSpecificationsBuilder();
+
+		if (null != userId && !userId.isEmpty())
+			builder.with("userId", ":", userId);
+
+		if (null != firstName && !firstName.isEmpty())
+			builder.with("firstName", ":", firstName);
+
+		if (null != secondName && !secondName.isEmpty())
+			builder.with("secondName", ":", secondName);
+
+		if (null != email && !email.isEmpty())
+			builder.with("email", ":", email);
+
+		if (null != state && !state.isEmpty())
+			builder.with("state", ":", state);
+
+		Specification<User> spec = builder.build();
+
+		return userRepository.findAll(spec, pg);
+	}
+
 }

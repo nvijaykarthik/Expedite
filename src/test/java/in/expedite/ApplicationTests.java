@@ -28,6 +28,7 @@ import org.springframework.util.MultiValueMap;
 
 import in.expedite.entity.User;
 import in.expedite.service.UserService;
+import in.expedite.service.UserServiceTest;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
