@@ -1,5 +1,6 @@
 package in.expedite.entity;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
@@ -55,6 +58,14 @@ public class User {
 	
 	@OneToMany(mappedBy="user")
 	private	Set<UserRole> userRole = new HashSet<>();
+	
+	@Column
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdDate=new Date();
+	
+	@Column
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date modifiedDate=new Date();
 	
 	public String getUserId() {
 		return userId;
@@ -104,14 +115,6 @@ public class User {
 		this.state = state;
 	}
 
-
-
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", firstName=" + firstName + ", secondName=" + secondName + ", email=" + email
-				+ ", password=[PROTECTED], state=" + state + ", userRole=" + userRole + "]";
-	}
-
 	public Set<UserRole> getUserRole() {
 		return userRole;
 	}
@@ -120,6 +123,28 @@ public class User {
 		this.userRole = userRole;
 	}
 
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", firstName=" + firstName + ", secondName=" + secondName + ", email=" + email
+				+ ", password=" + password + ", state=" + state + ", userRole=" + userRole + ", createdDate="
+				+ createdDate + ", modifiedDate=" + modifiedDate + "]";
+	}
 	
 	
 }

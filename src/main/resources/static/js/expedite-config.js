@@ -11,6 +11,9 @@ app.config(function($routeProvider) {
   .when('/accessCode', {
     templateUrl : 'pages/AccessCode.html',
   })
+  .when('/users', {
+    templateUrl : 'pages/Users.html',
+  })
   .otherwise({redirectTo: '/'});
 });
 
