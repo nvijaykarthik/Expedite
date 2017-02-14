@@ -90,7 +90,7 @@ public class ExpediteApplication extends SpringBootServletInitializer  {
 
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-			 auth.userDetailsService(userDetailsService);//.passwordEncoder(bcryptEncoder());
+			 auth.userDetailsService(userDetailsService).passwordEncoder(bcryptEncoder());
 		}
 		
 		@Bean

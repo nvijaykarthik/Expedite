@@ -1,17 +1,16 @@
 package in.expedite.service;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import in.expedite.entity.Configuration;
 import in.expedite.repository.ConfigurationRepository;
-import in.expedite.utils.CollectionUtil;
+import in.expedite.specification.SpecificationUtils;
 
 @Service
 @Transactional
@@ -44,9 +43,10 @@ public class ConfigurationService {
 	 * Get all the available configuration Pagable
 	 * @return
 	 */
-	public Iterable<Configuration> getAllConfiguration(Integer pageNumber){
+	public Iterable<Configuration> getAllConfiguration(Integer pageNumber,String key,String value){
 		PageRequest pg= new PageRequest(pageNumber, pageSize);
-		return configurationRepository.findAll(pg); 
+		Specification<Configuration> spec= SpecificationUtils.getConfigurationSpecs(key, value);
+		return configurationRepository.findAll(spec,pg); 
 	}
 	
 	/**

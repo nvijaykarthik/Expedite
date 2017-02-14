@@ -16,8 +16,6 @@ import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
-
-import io.jsonwebtoken.JwtException;
 /**
  * Extending the spring authentication processing filter to extract the jwt to user.
  * @author vijaykarthik

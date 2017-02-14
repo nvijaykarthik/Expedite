@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import in.expedite.entity.MyUser;
-import io.jsonwebtoken.JwtException;
 
 /**
  * Extending authentication provider to parse the jwt token

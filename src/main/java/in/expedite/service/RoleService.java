@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -20,7 +19,6 @@ import in.expedite.entity.RoleAccessXref;
 import in.expedite.entity.State;
 import in.expedite.repository.RoleAccessXrefRepository;
 import in.expedite.repository.RoleRepository;
-import in.expedite.utils.CollectionUtil;
 
 @Component
 @Transactional
