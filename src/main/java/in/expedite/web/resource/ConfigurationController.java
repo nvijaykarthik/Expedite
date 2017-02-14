@@ -1,14 +1,10 @@
 package in.expedite.web.resource;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,9 +26,9 @@ public class ConfigurationController {
 	private static final Logger LOG = LoggerFactory.getLogger(ConfigurationController.class);
 	
 	@RequestMapping(produces="application/json",method=RequestMethod.GET)
-	public Iterable<Configuration> getConfiguration(@RequestParam(name="p") Integer pageNumber) throws Exception{
+	public Iterable<Configuration> getConfiguration(@RequestParam(name="p") Integer pageNumber,@RequestParam(name="key",required=false) String key,@RequestParam(name="value",required=false) String value) throws Exception{
 		LOG.info("Retrieving All configuration");
-		Iterable<Configuration> confList=cs.getAllConfiguration(pageNumber);
+		Iterable<Configuration> confList=cs.getAllConfiguration(pageNumber,key,value);
 		LOG.debug("Getting All the configuration available "+confList);
 		return  confList;
 	}

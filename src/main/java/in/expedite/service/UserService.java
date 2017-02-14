@@ -1,7 +1,5 @@
 package in.expedite.service;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -10,18 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import in.expedite.entity.User;
 import in.expedite.entity.State;
+import in.expedite.entity.User;
 import in.expedite.repository.UserRepository;
 import in.expedite.repository.UserSpecificationsBuilder;
-import in.expedite.utils.CollectionUtil;
 
 @Component
 @Transactional

@@ -54,6 +54,22 @@ var url="/resource/config";
 <div class="panel panel-success panel-dark">
 		<div class="panel-heading"><h3 class="panel-title">View Configuration</h3></div>
 		<div class="panel-body">
+			<form>
+				 <fieldset>
+    				<legend>Search</legend>
+    				<table>
+    				<tr>
+    				<td>Key : </td>
+    				<td>&nbsp;<input type="text" class="form-control input-sm" id="key" placeholder="Key" ng-model="search.key">&nbsp;</td>
+    				<td>Value : </td>
+    				<td>&nbsp;<input type="text" class="form-control input-sm" id="value" placeholder="value" ng-model="search.value">&nbsp;</td>
+    				
+    				<td><button type="button" class="btn  btn-primary" ng-click="refresh()">Search</button>&nbsp;
+    				<button type="reset" class="btn  btn-primary" ng-click="reset()">Reset</button></td>
+    				</tr>
+    				</table>	
+    			</fieldset>
+    		</form>
 				<table class="table">
 					<thead>
 						<tr>
@@ -68,7 +84,6 @@ var url="/resource/config";
 						</tr>
 					</thead>
 					<tbody>
-					<input type="text" ng-model="searchKeyword" class="form-control ng-valid ng-dirty" id="searchTable" placeholder="Search table"  >
 						<tr ng-repeat="config in configurationList | filter: searchKeyword ">
 							<td>{{config.id}}</td>
 							<td>{{config.key}}</td>

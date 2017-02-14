@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import in.expedite.entity.AccessCode;
-import in.expedite.entity.Configuration;
 import in.expedite.entity.Role;
 import in.expedite.entity.RoleAccessXref;
 import in.expedite.service.RoleService;

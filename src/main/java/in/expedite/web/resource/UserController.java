@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import in.expedite.entity.State;
 import in.expedite.entity.User;
 import in.expedite.service.UserService;
-import in.expedite.service.UserServiceTest;
 import in.expedite.utils.ExJsonResponse;
 
 @RestController

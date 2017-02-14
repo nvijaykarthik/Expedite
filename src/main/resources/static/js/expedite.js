@@ -1,12 +1,16 @@
-app.controller('ConfigController', function($scope,$http,$log) {
+app.controller('ConfigController', function($scope,$http,$log,$httpParamSerializerJQLike) {
 	$scope.formData = {};
+	$scope.search={};
     $scope.resetPage=function(){
             $scope.showsucess=false;
             $scope.showerror=false;
             $scope.success="";
             $scope.error="";
         }
-   
+    $scope.reset=function(){
+    	$scope.search={};
+    	$scope.refresh();
+    }
     $scope.currentPage = 0;
     $scope.add = function() {
     	$scope.resetPage();
@@ -29,11 +33,12 @@ app.controller('ConfigController', function($scope,$http,$log) {
                      $scope.error=resp.data.message;
                     });
     };
+    
     $scope.refresh = function(){
     $scope.resetPage();
 	    $http({
 	        method : "GET",
-	        url : url+ "?p="+$scope.currentPage
+	        url : url+ "?p="+$scope.currentPage+"&"+$httpParamSerializerJQLike($scope.search)
 	    }).then(function success(response) {
 	    	$log.log(response.data.content)
              $scope.configurationList = response.data.content;
@@ -49,6 +54,7 @@ app.controller('ConfigController', function($scope,$http,$log) {
     $scope.pageChanged = function(){
     	$log.log($scope.currentPage);
     }
+    
     $scope.modify=function (config)
     {
         $scope.resetPage();
