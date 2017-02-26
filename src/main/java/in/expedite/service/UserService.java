@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import in.expedite.entity.State;
 import in.expedite.entity.User;
 import in.expedite.repository.UserRepository;
-import in.expedite.repository.UserSpecificationsBuilder;
+import in.expedite.specification.SpecificationUtils;
 
 @Component
 @Transactional
@@ -119,25 +119,7 @@ public class UserService {
 		log.debug("Getting all the Users based on the values : " + userId + "," + firstName + "," + secondName + ","
 				+ email + "," + state + "," + pageNumber);
 		PageRequest pg = new PageRequest(pageNumber, pageSize);
-		UserSpecificationsBuilder builder = new UserSpecificationsBuilder();
-
-		if (null != userId && !userId.isEmpty())
-			builder.with("userId", ":", userId);
-
-		if (null != firstName && !firstName.isEmpty())
-			builder.with("firstName", ":", firstName);
-
-		if (null != secondName && !secondName.isEmpty())
-			builder.with("secondName", ":", secondName);
-
-		if (null != email && !email.isEmpty())
-			builder.with("email", ":", email);
-
-		if (null != state && !state.isEmpty())
-			builder.with("state", ":", state);
-
-		Specification<User> spec = builder.build();
-
+		Specification<User> spec = SpecificationUtils.getUserSearchSpecs(userId, firstName, secondName, email, state);
 		return userRepository.findAll(spec, pg);
 	}
 

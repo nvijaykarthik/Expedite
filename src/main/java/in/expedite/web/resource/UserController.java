@@ -47,4 +47,10 @@ public class UserController {
 		return new ExJsonResponse(0,"Sucessfully Added");
 	}
 	
+	@RequestMapping(path="/resetPwd",method=RequestMethod.GET,produces="application/json")
+	public ExJsonResponse resetUserPwd(@RequestParam String userId){
+		userService.resetPassword(userId);
+		return new ExJsonResponse(0,"Sucessfully Added");
+	}
+	
 }
