@@ -51,6 +51,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 		}
 		
 		//List<GrantedAuthority> authorityList = (List<GrantedAuthority>) parsedUser.getAuthorities();
+		LOG.debug("Logged in User details:"+parsedUser);
 		return parsedUser;
 	}
 }

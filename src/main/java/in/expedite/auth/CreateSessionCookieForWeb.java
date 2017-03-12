@@ -46,8 +46,9 @@ public class CreateSessionCookieForWeb extends SimpleUrlAuthenticationSuccessHan
 
 	    Cookie myCookie = new Cookie(cookieName, URLEncoder.encode(cookieValue, "UTF-8"));
 	    myCookie.setSecure(useSecureCookie.booleanValue());  // determines whether the cookie should only be sent using a secure protocol, such as HTTPS or SSL
-	    myCookie.setMaxAge(expiryTime);  // A negative value means that the cookie is not stored persistently and will be deleted when the Web browser exits. A zero value causes the cookie to be deleted.
+	    myCookie.setMaxAge(-1);  // A negative value means that the cookie is not stored persistently and will be deleted when the Web browser exits. A zero value causes the cookie to be deleted.
 	    myCookie.setPath(cookiePath);  // The cookie is visible to all the pages in the directory you specify, and all the pages in that directory's subdirectories
+	    
 	    response.addCookie(myCookie);
 	    
 		super.onAuthenticationSuccess(request, response, authentication);

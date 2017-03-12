@@ -32,5 +32,10 @@ public class MyUser extends User {
 		public String getEmail() {
 			return email;
 		}
+
+		@Override
+		public String toString() {
+			return "MyUser [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+		}
 	
 }
