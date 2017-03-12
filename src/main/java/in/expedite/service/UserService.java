@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import in.expedite.entity.State;
 import in.expedite.entity.User;
 import in.expedite.repository.UserRepository;
+import in.expedite.repository.UserServiceDAO;
 import in.expedite.specification.SpecificationUtils;
 
 @Component
@@ -30,6 +31,9 @@ public class UserService {
 	@Qualifier("bcryptEncoder")
 	PasswordEncoder encoder;
 
+	@Autowired
+	UserServiceDAO userDao;
+	
 	@Value("${expedite.page.size}")
 	private Integer pageSize;
 
@@ -40,7 +44,7 @@ public class UserService {
 	 */
 	public void addUser(User user) {
 		log.debug("Adding new user " + user);
-		user.setPassword(encoder.encode(user.getPassword()));
+		user.setPassword(encoder.encode("password"));
 		userRepository.save(user);
 	}
 
@@ -73,12 +77,9 @@ public class UserService {
 	 * @param userId
 	 * @return
 	 */
-	public User resetPassword(String userId) {
-		User user = new User();
-		user.setUserId(userId);
-		user.setPassword(encoder.encode("password"));
-		log.debug("Resetting Password " + user);
-		return userRepository.save(user);
+	public void resetPassword(String userId) {
+		log.debug("Resetting Password " + userId);
+		userDao.setPasswordForUser(userId,encoder.encode("password"));
 	}
 
 	/**
@@ -88,7 +89,7 @@ public class UserService {
 	 * @return
 	 */
 	public User updateUser(User user) {
-		log.debug("Resetting Password " + user);
+		log.debug("Updating user " + user);
 		user.setPassword(encoder.encode(user.getPassword()));
 		return userRepository.save(user);
 	}

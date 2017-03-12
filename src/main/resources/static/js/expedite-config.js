@@ -1,6 +1,7 @@
 var app = angular.module('myApp', ['ngRoute','ui.bootstrap']);
 
 app.config(function($routeProvider) {
+   
 	var resolveController = function(path) {
         var deferred = $q.defer();
         var script = document.createElement('script');
@@ -15,8 +16,7 @@ app.config(function($routeProvider) {
   $routeProvider
   .when('/', {
     templateUrl : 'pages/Configuration.html',
-    resolve: resolveController('controllers/homeController.js')
-  })
+   })
   .when('/role', {
     templateUrl : 'pages/Role.html',
   })

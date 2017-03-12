@@ -17,6 +17,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 
  * @author vijayakarthik
@@ -61,10 +63,12 @@ public class User {
 	
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")  
 	private Date createdDate=new Date();
 	
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")  
 	private Date modifiedDate=new Date();
 	
 	public String getUserId() {

@@ -29,7 +29,7 @@ var url="/resource/users";
 <div class="col-md-3">
 	<div class="panel panel-info panel-dark">
 		<div class="panel-body">
-   		 <button class="btn btn-primary" ng-click="clearData()" data-toggle="modal" data-target="#userModal"><span class=" fa fa-plus">&nbsp</span>Add New User</button>
+   		 <button class="btn btn-primary" ng-click="clearData()" data-toggle="modal" data-target="#newUserModal"><span class=" fa fa-plus">&nbsp</span>Add New User</button>
      	</div>
 	</div>
 	<div class="panel panel-info panel-dark">
@@ -107,8 +107,8 @@ var url="/resource/users";
 							<span class=" fa fa-pencil">&nbsp</span>
 								Edit
                              </button>
-                             <button type="button" class="btn  btn-info" ng-click="resetPwd(user)">
-							<span class=" fa fa-pencil">&nbsp</span>
+                              <button type="button" class="btn  btn-info" ng-click="resetPwd(user)">
+							  <span class=" fa fa-refresh">&nbsp</span>
 								Reset Password
                              </button>
                             </td>
