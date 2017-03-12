@@ -90,7 +90,6 @@ public class UserService {
 	 */
 	public User updateUser(User user) {
 		log.debug("Updating user " + user);
-		user.setPassword(encoder.encode(user.getPassword()));
 		return userRepository.save(user);
 	}
 

@@ -220,35 +220,35 @@ var url="/resource/users";
 			<div class="form-group">
 				<label  class="control-label">User Name</label>
 				<div>
-					<input type="text" class="form-control" id="userName" placeholder="User Name" ng-model="formData.userId">
+					<input disabled type="text" class="form-control" id="userName" placeholder="User Name" ng-model="updateData.userId">
 					<span class="help-block">choose the user Id : [a-zA-Z0-9] </span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label">First Name</label>
 				<div>
-					<input type="text" class="form-control" id="firstname" placeholder="First Name" ng-model="formData.firstName">
+					<input type="text" class="form-control" id="firstname" placeholder="First Name" ng-model="updateData.firstName">
 					<span class="help-block">First Name : [a-zA-Z0-9] </span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label">Last Name</label>
 				<div>
-					<input type="text" class="form-control" id="lastname" placeholder="Last Name" ng-model="formData.secondName">
+					<input type="text" class="form-control" id="lastname" placeholder="Last Name" ng-model="updateData.secondName">
 					<span class="help-block">Last Name : [a-zA-Z0-9] </span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label">Email</label>
 				<div>
-					<input type="text" class="form-control" id="Email" placeholder="Email" ng-model="formData.email">
+					<input type="text" class="form-control" id="Email" placeholder="Email" ng-model="updateData.email">
 					<span class="help-block">Email Id : [a-zA-Z0-9] </span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label">Status</label>
 				<div>
-				<select class="form-control" ng-options="status for status in userStatusList" ng-model="formData.state"></select>
+				<select class="form-control" ng-options="status for status in userStatusList" ng-model="updateData.state"></select>
 				<span class="help-block">Status: [a-zA-Z0-9] </span>
 				</div>
 			</div>

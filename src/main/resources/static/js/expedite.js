@@ -363,6 +363,7 @@ app.controller('usersController', function($scope,$http,$log) {
     $scope.currentPage = 0;
     $scope.filterData={};
     $scope.formData={};
+    $scope.updateData={};
     $scope.refresh = function(){
     	
     	f_url=url+"?p="+$scope.currentPage+"&"+$.param($scope.filterData);
@@ -408,9 +409,7 @@ app.controller('usersController', function($scope,$http,$log) {
     }
     
  $scope.resetPwd=function(user){
-    	
-   	
-    	$http({
+       	$http({
 	        method : "GET",
 	        url : url+"/resetPwd?userId="+user.userId
 	    }).then(function success(response) {
@@ -426,14 +425,34 @@ app.controller('usersController', function($scope,$http,$log) {
 	    });
     }
     
+ $scope.update=function(){
+    	$http({
+	        method : "POST",
+	        url : url+"/update",
+	        data:$scope.updateData
+	    }).then(function success(response) {
+	    	$log.log(response.data)
+	    	 $scope.currentPage = 0;
+	    	 $scope.showsucess=true;
+	         $scope.success=response.data.message;
+         $scope.refresh();
+	    }, function failure(response) {
+	        $log.error(response.status)
+        $scope.showerror=true;
+        $scope.error=response.data.message;
+	    });
+ }
+ 
+ 
     $scope.edit=function(user){
-    	$scope.formData.userId=user.userId;
-    	$scope.formData.firstName=user.firstName;
-    	$scope.formData.secondName=user.secondName;
-    	$scope.reentryPassword=user.password;
-    	$scope.formData.password=user.password;
-    	$scope.formData.email=user.email;
-    	$scope.formData.state=user.state;
+    	$scope.updateData.userId=user.userId;
+    	$scope.updateData.firstName=user.firstName;
+    	$scope.updateData.secondName=user.secondName;
+    	$scope.updateData.password=user.password;
+    	$scope.updateData.email=user.email;
+    	$scope.updateData.state=user.state;
+    	$scope.updateData.modifiedDate=user.modifiedDate;
+    	$scope.updateData.createdDate=user.createdDate;
     }
     
     $scope.filter = function(){
