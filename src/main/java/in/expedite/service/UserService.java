@@ -82,6 +82,17 @@ public class UserService {
 		userDao.setPasswordForUser(userId,encoder.encode("password"));
 	}
 
+	
+	/**
+	 * Updating password
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public void updatePassword(String userId,String password) {
+		log.debug("Resetting Password " + userId);
+		userDao.setPasswordForUser(userId,encoder.encode(password));
+	}
 	/**
 	 * Updating User
 	 * 

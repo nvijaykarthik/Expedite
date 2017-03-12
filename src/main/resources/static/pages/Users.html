@@ -103,14 +103,19 @@ var url="/resource/users";
 							<td>{{user.modifiedDate}}</td>
 							<td>{{user.state}}</td>
 							<td>
-							<button type="button" class="btn  btn-info" ng-click="edit(user)" data-toggle="modal" data-target="#editUserModal">
+							<button type="button" class="btn  btn-info btn-sm " ng-click="edit(user)" data-toggle="modal" data-target="#editUserModal">
 							<span class=" fa fa-pencil">&nbsp</span>
 								Edit
                              </button>
-                              <button type="button" class="btn  btn-info" ng-click="resetPwd(user)">
+                              <button type="button" class="btn  btn-info btn-sm" ng-click="resetPwd(user)">
 							  <span class=" fa fa-refresh">&nbsp</span>
 								Reset Password
                              </button>
+                              <button type="button" class="btn  btn-info btn-sm" ng-click="editPwd(user)" data-toggle="modal" data-target="#pwdUserModal" >
+							  <span class=" fa fa-exchange">&nbsp</span>
+								Change Password
+                             </button>
+                             
                             </td>
 						</tr>
 					</tbody>
@@ -165,20 +170,6 @@ var url="/resource/users";
 				<label class="control-label">Last Name</label>
 				<div>
 					<input type="text" class="form-control" id="lastname" placeholder="Last Name" ng-model="formData.secondName">
-					<span class="help-block">Last Name : [a-zA-Z0-9] </span>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label">Password</label>
-				<div>
-					<input type="password" class="form-control" id="lastname" placeholder="Last Name" ng-model="formData.password">
-					<span class="help-block">Last Name : [a-zA-Z0-9] </span>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label">ReEntry Password</label>
-				<div>
-					<input type="password" class="form-control" id="lastname" placeholder="Last Name" ng-model="reentryPassword">
 					<span class="help-block">Last Name : [a-zA-Z0-9] </span>
 				</div>
 			</div>
@@ -262,4 +253,52 @@ var url="/resource/users";
 		</div>
 	  </div>
 	</div>
+	
+	
+	<!-- Password Change -->
+<!-- Modal -->
+	<div class="modal fade bs-example-modal-lg" id="pwdUserModal" tabindex="-1" role="dialog" aria-labelledby="pwdUserModalLabel">
+	  <div class="modal-dialog modal-lg modal-xl" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel">User </h4>
+		  </div>
+		  <div class="modal-body">
+			 <div style="padding:15px;">
+		  <form class="form-horizontal">
+			<div class="form-group">
+				<label  class="control-label">User Name</label>
+				<div>
+					<input type="text" class="form-control" id="userName" placeholder="User Name" ng-model="userPwd.userId">
+					<span class="help-block">choose the user Id : [a-zA-Z0-9] </span>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="control-label">Password</label>
+				<div>
+					<input type="password" class="form-control" id="lastname" placeholder="Last Name" ng-model="userPwd.password">
+					<span class="help-block">Last Name : [a-zA-Z0-9] </span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label">ReEntry Password</label>
+				<div>
+					<input type="password" class="form-control" id="lastname" placeholder="Last Name" ng-model="userPwd.reentryPassword">
+					<span class="help-block">Last Name : [a-zA-Z0-9] </span>
+				</div>
+			</div>
+			
+   		</form>
+			  </div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary" ng-click="updatePwd(userPwd)" data-dismiss="modal">Save</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
 </main>

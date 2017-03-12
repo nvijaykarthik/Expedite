@@ -363,6 +363,7 @@ app.controller('usersController', function($scope,$http,$log) {
     $scope.currentPage = 0;
     $scope.filterData={};
     $scope.formData={};
+    $scope.userPwd={};
     $scope.updateData={};
     $scope.refresh = function(){
     	
@@ -388,12 +389,7 @@ app.controller('usersController', function($scope,$http,$log) {
     
     
     $scope.save=function(){
-    	
-    	if($scope.reentryPassword!=$scope.formData.password){
-    		alert("Password not matching");
-    	}
-    	
-    	$http({
+       	$http({
 	        method : "POST",
 	        url : url,
 	        data:$scope.formData
@@ -407,6 +403,7 @@ app.controller('usersController', function($scope,$http,$log) {
            $scope.error=response.data.message;
 	    });
     }
+    
     
  $scope.resetPwd=function(user){
        	$http({
@@ -425,6 +422,25 @@ app.controller('usersController', function($scope,$http,$log) {
 	    });
     }
     
+ $scope.updatePwd=function(user){
+	 if(user.reentryPassword!=user.password){
+ 		alert("Password not matching");
+ 	}
+    	$http({
+	        method : "GET",
+	        url : url+"/resetPwd?userId="+user.userId+"&password"+user.password
+	    }).then(function success(response) {
+	    	$log.log(response.data)
+	    	 $scope.currentPage = 0;
+	    	 $scope.showsucess=true;
+	         $scope.success=response.data.message;
+         $scope.refresh();
+	    }, function failure(response) {
+	        $log.error(response.status)
+        $scope.showerror=true;
+        $scope.error=response.data.message;
+	    });
+ }
  $scope.update=function(){
     	$http({
 	        method : "POST",
@@ -443,6 +459,9 @@ app.controller('usersController', function($scope,$http,$log) {
 	    });
  }
  
+ $scope.editPwd=function(user){
+ 	$scope.userPwd.userId=user.userId;
+ }
  
     $scope.edit=function(user){
     	$scope.updateData.userId=user.userId;

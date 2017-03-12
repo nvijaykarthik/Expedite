@@ -53,6 +53,12 @@ public class UserController {
 		return new ExJsonResponse(0,"Sucessfully Updated");
 	}
 	
+	@RequestMapping(path="/updatePwd",method=RequestMethod.GET,produces="application/json")
+	public ExJsonResponse updatePwd(@RequestParam String userId,@RequestParam String password){
+		userService.updatePassword(userId, password);
+		return new ExJsonResponse(0,"Sucessfully Updated");
+	}
+	
 	@RequestMapping(path="/resetPwd",method=RequestMethod.GET,produces="application/json")
 	public ExJsonResponse resetUserPwd(@RequestParam String userId){
 		userService.resetPassword(userId);
