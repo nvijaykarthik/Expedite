@@ -327,10 +327,10 @@ Use search to find needed section.
 								</form>
 							</li>
 
-							<li class="dropdown">
+							<li class="dropdown" ng-controller="authController">
 								<a class="dropdown-toggle user-menu pointer" data-toggle="dropdown">
 									<img src="demo/avatars/1.jpg" alt="">
-									<span>John Doe</span>
+									<span>{{user.firstName}},{{user.lastName}}</span>
 								</a>
 								<ul class="dropdown-menu">
 									<li><a href="index.html#"><span class="label label-warning pull-right">New</span>Profile</a></li>

@@ -546,3 +546,19 @@ app.controller('usersController', function($scope,$http,$log) {
            $scope.error=response.data.message;
 	    });
 });
+
+
+app.controller('authController', function($scope,$http,$log) {
+	
+	$http({
+        method : "GET",
+        url : "/resource/users/principal",
+    }).then(function success(response) {
+    	$log.log(response.data)
+        $scope.user = response.data;
+    }, function failure(response) {
+        $log.error(response.status)
+       
+    });
+	
+});

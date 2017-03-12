@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import in.expedite.entity.MyUser;
 import in.expedite.entity.State;
 import in.expedite.entity.User;
 import in.expedite.service.UserService;
@@ -21,6 +23,13 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	
+	@RequestMapping(method=RequestMethod.GET,path="/principal",produces="application/json")
+	public MyUser getAuthUser() {
+		MyUser user=(MyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return user;
+	}
 	
 	@RequestMapping(method=RequestMethod.GET,produces="application/json")
 	public Iterable<User> getUsers(@RequestParam("p") Integer pageNo,

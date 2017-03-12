@@ -17,6 +17,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -32,6 +33,7 @@ import in.expedite.auth.JwtAuthenticationFilter;
 import in.expedite.auth.JwtAuthenticationProvider;
 import in.expedite.auth.JwtAuthenticationSuccessHandler;
 import in.expedite.auth.RestAuthenticationEntryPoint;
+import in.expedite.entity.MyUser;
 import in.expedite.service.UserDetailsService;
 
 @SpringBootApplication
@@ -39,10 +41,7 @@ import in.expedite.service.UserDetailsService;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ExpediteApplication extends SpringBootServletInitializer  {
 
-	@RequestMapping("/user")
-	public Principal user(Principal user) {
-		return user;
-	}
+
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ExpediteApplication.class, args);

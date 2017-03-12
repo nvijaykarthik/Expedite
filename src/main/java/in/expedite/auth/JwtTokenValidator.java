@@ -44,7 +44,7 @@ public class JwtTokenValidator {
             currentUser = new MyUser(body.getSubject(),"nondisclosed",(boolean)body.get("enabled"),
             		(boolean)body.get("accountNonExpired"),(boolean)body.get("credentialsNonExpired"),
             		(boolean)body.get("accountNonLocked"),wrapperGrantedAuthorities(authorityList),
-            		(String)body.get("firstName"),(String)body.get("firstName"),(String)body.get("email"));
+            		(String)body.get("firstName"),(String)body.get("lastName"),(String)body.get("email"));
             
         } catch (JwtException e) {
             // Simply print the exception and null will be returned for the userDto
