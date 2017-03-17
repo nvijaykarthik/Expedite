@@ -58,8 +58,7 @@ public class User {
 	@Column(name="STATE", nullable=false)
 	private String state=State.ACTIVE.getState();
 	
-	@OneToMany(mappedBy="user")
-	private	Set<UserRole> userRole = new HashSet<>();
+
 	
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
@@ -119,13 +118,7 @@ public class User {
 		this.state = state;
 	}
 
-	public Set<UserRole> getUserRole() {
-		return userRole;
-	}
 
-	public void setUserRole(Set<UserRole> userRole) {
-		this.userRole = userRole;
-	}
 
 	public Date getCreatedDate() {
 		return createdDate;
@@ -146,9 +139,10 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", firstName=" + firstName + ", secondName=" + secondName + ", email=" + email
-				+ ", password=" + password + ", state=" + state + ", userRole=" + userRole + ", createdDate="
-				+ createdDate + ", modifiedDate=" + modifiedDate + "]";
+				+ ", password=" + password + ", state=" + state + ", createdDate=" + createdDate + ", modifiedDate="
+				+ modifiedDate + "]";
 	}
+
 	
 	
 }

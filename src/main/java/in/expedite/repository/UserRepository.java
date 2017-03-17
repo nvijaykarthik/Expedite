@@ -12,7 +12,7 @@ public interface UserRepository extends JpaRepository<User, Integer>,JpaSpecific
 
 	public User findByUserIdAndPassword(String userId,String password); 
 	
-	@Query("Select u from User u Left join fetch u.userRole where u.userId=?1")
+	@Query("Select u from User u where u.userId=?1")
 	public User findUserIdQuery(String userId); 
 
 		

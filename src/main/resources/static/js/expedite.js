@@ -545,6 +545,81 @@ app.controller('usersController', function($scope,$http,$log) {
            $scope.showerror=true;
            $scope.error=response.data.message;
 	    });
+	  
+	 
+	$scope.configureRole=function(user){
+		$scope.selectedUser=user;
+		$http({
+	         method  : 'GET',
+	         url     : url+"/getRolesForUser",
+	         params  : {"userId": $scope.selectedUser.userId},
+	         headers : {'Content-Type': 'application/json'}
+	        }).then(function success(resp){
+	                $log.info(resp.status)
+	                $scope.selection=[];
+	                $scope.roleList=resp.data
+	                angular.forEach($scope.roleList,function(role,index){
+	                	if(role.active){
+	                		$log.debug("Active:"+role.roleCode);
+	                		$scope.selection.push(role.roleCode)
+	                	}
+	                });
+	                },
+	                function failure(resp){
+	                $log.error(resp.status)
+	                 $scope.showerror=true;
+	                 $scope.error="Error retrieving Access code";
+	                });
+	}
+	$scope.selection=[];
+	// toggle selection for a given 
+	$scope.toggleSelection = function toggleSelection(roleCode) {
+	    var idx = $scope.selection.indexOf(roleCode);
+	   	 $log.debug("idx:"+idx);
+	    // is currently selected
+  	 $log.debug("TOGGLE:"+roleCode);
+  	    $scope.roleAcc={};
+  	    	$scope.roleAcc["userId"]=$scope.selectedUser.userId;
+	    	$scope.roleAcc["roleCode"]=roleCode;
+	    	
+	    	 $log.debug("TOGGLE:"+$scope.roleAcc);
+	    	 
+	    if (idx > -1) {
+	    	//remove from DB
+
+	    	 $http({
+	             method  : 'DELETE',
+	             url     : url+"/deleteRoleFromUser",
+	             data    : $scope.roleAcc,
+	             headers : {'Content-Type': 'application/json'}
+	            }).then(function success(resp){
+	                    $scope.selection.splice(idx, 1);
+	                    },
+	                    function failure(resp){
+	                     $log.error(resp.status)
+	                     $scope.showerror=true;
+	                     $scope.error=resp.data.message;
+	                    });
+	     
+	    }else {
+	    	//Add to DB
+	    	 $http({
+	             method  : 'POST',
+	             url     : url+"/addRolesToUser",
+	             data    : $scope.roleAcc,
+	             headers : {'Content-Type': 'application/json'}
+	            }).then(function success(resp){
+	            	$scope.selection.push(roleCode);
+                  },
+                  function failure(resp){
+                   $log.error(resp.status)
+                   $scope.showerror=true;
+                   $scope.error=resp.data.message;
+                  });
+	      
+	    }
+	  };
+	  
 });
 
 

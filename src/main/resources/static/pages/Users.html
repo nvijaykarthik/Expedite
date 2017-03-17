@@ -106,14 +106,18 @@ var url="/resource/users";
 							<button type="button" class="btn  btn-info btn-sm " ng-click="edit(user)" data-toggle="modal" data-target="#editUserModal">
 							<span class=" fa fa-pencil">&nbsp</span>
 								Edit
-                             </button>
+                             </button><br/>
                               <button type="button" class="btn  btn-info btn-sm" ng-click="resetPwd(user)">
 							  <span class=" fa fa-refresh">&nbsp</span>
 								Reset Password
-                             </button>
+                             </button><br/>
                               <button type="button" class="btn  btn-info btn-sm" ng-click="editPwd(user)" data-toggle="modal" data-target="#pwdUserModal" >
 							  <span class=" fa fa-exchange">&nbsp</span>
 								Change Password
+                             </button><br/>
+                             <button type="button" class="btn  btn-info btn-sm" ng-click="configureRole(user)" data-toggle="modal" data-target="#roleConfigurationModal" >
+							  <span class=" fa fa-cog">&nbsp</span>
+								Configure Role
                              </button>
                              
                             </td>
@@ -301,4 +305,29 @@ var url="/resource/users";
 	  </div>
 	</div>
 	
+	<!-- Password Change -->
+<!-- Modal -->
+	<div class="modal fade bs-example-modal-lg" id="roleConfigurationModal" tabindex="-1" role="dialog" aria-labelledby="roleConfigurationModalLabel">
+	  <div class="modal-dialog modal-lg modal-xl" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel">Configure the Roles for the user : {{selectedUser.userId}}</h4>
+		  </div>
+		  <div class="modal-body">
+			 <ul class="list-group">
+		 		<li class="list-group-item" ng-repeat="role in roleList" >
+		 		 <input id="{{role.roleCode}}" type="checkbox" value="{{role.roleCode}}" ng-checked="selection.indexOf(role.roleCode) > -1" ng-click="toggleSelection(role.roleCode)" />
+		    		<label>	{{role.roleDescription}}
+		   		</label>
+		 		</li>
+			 </ul>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary" ng-click="updatePwd(userPwd)" data-dismiss="modal">Save</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
 </main>

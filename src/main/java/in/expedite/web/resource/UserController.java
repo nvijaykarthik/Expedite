@@ -3,6 +3,8 @@ package in.expedite.web.resource;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import in.expedite.entity.AccessCode;
 import in.expedite.entity.MyUser;
+import in.expedite.entity.Role;
 import in.expedite.entity.State;
 import in.expedite.entity.User;
+import in.expedite.entity.UserRole;
 import in.expedite.service.UserService;
 import in.expedite.utils.ExJsonResponse;
 
@@ -74,4 +79,20 @@ public class UserController {
 		return new ExJsonResponse(0,"Password Reset Sucessfull");
 	}
 	
+	@RequestMapping(path="/addRolesToUser",method=RequestMethod.POST,produces="application/json")
+	public ExJsonResponse addRoleToUser(@RequestBody UserRole userRole){
+		userService.addUserRole(userRole);
+		return new ExJsonResponse(0,"Roles Configured Successfully");
+	}
+	
+	@RequestMapping(path="/deleteRoleFromUser",method=RequestMethod.DELETE,produces="application/json")
+	public ExJsonResponse deleteRoleFromUser(@RequestBody UserRole userRole){
+		userService.deleteUserRole(userRole.getUserId(),userRole.getRoleCode());
+		return new ExJsonResponse(0,"Roles Configured Successfully");
+	}
+	
+	@RequestMapping(path="/getRolesForUser",produces="application/json",method=RequestMethod.GET)
+	public List<Role> getRolesForUser(@Valid @RequestParam String userId){
+		return userService.getActiveRolesForUser(userId);
+	}
 }

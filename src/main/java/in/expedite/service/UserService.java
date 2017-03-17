@@ -1,5 +1,7 @@
 package in.expedite.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -12,9 +14,14 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import in.expedite.entity.AccessCode;
+import in.expedite.entity.Role;
+import in.expedite.entity.RoleAccessXref;
 import in.expedite.entity.State;
 import in.expedite.entity.User;
+import in.expedite.entity.UserRole;
 import in.expedite.repository.UserRepository;
+import in.expedite.repository.UserRoleRepository;
 import in.expedite.repository.UserServiceDAO;
 import in.expedite.specification.SpecificationUtils;
 
@@ -27,6 +34,13 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 
+	@Autowired
+	UserRoleRepository userRoleRepo;
+	
+	
+	@Autowired
+	RoleService roleService;
+	
 	@Autowired
 	@Qualifier("bcryptEncoder")
 	PasswordEncoder encoder;
@@ -133,5 +147,33 @@ public class UserService {
 		Specification<User> spec = SpecificationUtils.getUserSearchSpecs(userId, firstName, secondName, email, state);
 		return userRepository.findAll(spec, pg);
 	}
+	
+	public UserRole addUserRole(UserRole userRoles){
+		log.debug("Added User Role");
+		return userRoleRepo.save(userRoles);
+	}
+	
+	public void deleteUserRole(String userId,String roleCode){
+		log.debug("Delete User Role");
+		userRoleRepo.deleteByUserIdAndRoleCode(userId,roleCode);
+	}
 
+	public List<UserRole> getUserRoles(String userId){
+		log.debug("getList of user roles");
+		return userRoleRepo.findByUserId(userId);
+	}
+	
+	public List<Role> getActiveRolesForUser(String userId){
+		log.debug("Getting Access Role Reference ");
+		List<UserRole> userRoles=userRoleRepo.findByUserId(userId);
+		List<Role> roles=roleService.getRoles();
+		roles.forEach(role->{
+			userRoles.forEach(userRole->{
+				if(userRole.getRoleCode().equals(role.getRoleCode())){
+					role.setActive(true);
+				}
+			});
+		});
+		return roles;
+	}
 }

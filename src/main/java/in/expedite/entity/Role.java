@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -28,6 +29,8 @@ public class Role {
 	@Column(nullable=false)
 	private String status=State.ACTIVE.toString();
 
+	@Transient
+	private boolean active;
 
 	public Long getId() {
 		return id;
@@ -65,6 +68,14 @@ public class Role {
 	public String toString() {
 		return "Role [id=" + id + ", roleCode=" + roleCode + ", roleDescription=" + roleDescription + ", status="
 				+ status + "]";
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	
 	

@@ -16,9 +16,8 @@ public class UserRole {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne
-	@JoinColumn(name = "userId")
-	private User user;
+	@Column
+	private String userId;
 	
 	@Column
 	private String roleCode;
@@ -33,14 +32,6 @@ public class UserRole {
 		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public String getRoleCode() {
 		return roleCode;
 	}
@@ -51,6 +42,14 @@ public class UserRole {
 
 	@Override
 	public String toString() {
-		return "UserRole [id=" + id + ", user=" + user + ", roleCode=" + roleCode + "]";
+		return "UserRole [id=" + id + ", userId=" + userId + ", roleCode=" + roleCode + "]";
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 }

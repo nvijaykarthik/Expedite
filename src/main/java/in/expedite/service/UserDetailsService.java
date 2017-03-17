@@ -55,7 +55,7 @@ public class UserDetailsService implements org.springframework.security.core.use
     private List<GrantedAuthority> getGrantedAuthorities(User user){
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
          
-        for(UserRole userRole : user.getUserRole()){
+        for(UserRole userRole : userService.getUserRoles(user.getUserId())){
           LOG.info("Logged in User Role: "+userRole.getRoleCode());
             authorities.add(new SimpleGrantedAuthority(userRole.getRoleCode()));//+userProfile.getType()));
        }
