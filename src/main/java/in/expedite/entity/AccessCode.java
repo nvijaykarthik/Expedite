@@ -18,12 +18,12 @@ public class AccessCode {
 	private Long id;
 	
 	
-	@NotBlank(message="Module should not be Empty")
-	@Pattern(regexp="^[a-zA-Z0-9_]*$",message="In Valid Role Code")
+	@NotBlank(message="Method should not be Empty")
+	@Pattern(regexp="^[a-zA-Z0-9_]*$",message="inValid Method")
 	@Column(nullable=false)
-	private String module;
+	private String method;
 	@Column(nullable=false)
-	private String menuLink;
+	private String mapping;
 	@Column(nullable=false,unique=true)
 	private String accessCode;
 	@Column(nullable=false)
@@ -40,21 +40,6 @@ public class AccessCode {
 		this.id = id;
 	}
 
-	public String getModule() {
-		return module;
-	}
-
-	public void setModule(String module) {
-		this.module = module;
-	}
-
-	public String getMenuLink() {
-		return menuLink;
-	}
-
-	public void setMenuLink(String menuLink) {
-		this.menuLink = menuLink;
-	}
 
 	public String getAccessCode() {
 		return accessCode;
@@ -80,10 +65,27 @@ public class AccessCode {
 		this.active = active;
 	}
 
+	public String getMethod() {
+		return method;
+	}
+
+	public void setMethod(String method) {
+		this.method = method;
+	}
+
+	public String getMapping() {
+		return mapping;
+	}
+
+	public void setMapping(String mapping) {
+		this.mapping = mapping;
+	}
+
 	@Override
 	public String toString() {
-		return "AccessCode [id=" + id + ", module=" + module + ", menuLink=" + menuLink + ", accessCode=" + accessCode
+		return "AccessCode [id=" + id + ", method=" + method + ", mapping=" + mapping + ", accessCode=" + accessCode
 				+ ", accessDesc=" + accessDesc + ", active=" + active + "]";
 	}
+
 	
 }

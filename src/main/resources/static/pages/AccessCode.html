@@ -32,16 +32,18 @@ var url="/resource/accessCode";
 		<div class="panel-body">
    		<form class="form-horizontal">
 			<div class="form-group">
-				<label for="disabledinput" class="control-label">Module Name</label>
+				<label for="disabledinput" class="control-label">Mapping</label>
 				<div>
-					<input type="text" class="form-control" id="module" placeholder="Module Name" ng-model="formData.module">
-					<span class="help-block">Allowed Characters (A-Z,0-9,_) </span>
+					<select class="form-control" ng-model="formData.state" id="accessMapping" ng-change="update()">
+						<option ng-repeat="mapping in mappings" value="{{mapping.patternsCondition.patterns[0]}}:{{mapping.methodsCondition.methods[0]}}">{{mapping.patternsCondition.patterns[0]}}:{{mapping.methodsCondition.methods[0]}} </option>
+					</select>
+					<span class="help-block">Select from Drop Down</span>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="disabledinput" class="control-label">Menu Link Name</label>
+				<label for="disabledinput" class="control-label">Method</label>
 				<div>
-					<input type="text" class="form-control" id="menuLnk" placeholder="Menu Link Name" ng-model="formData.menuLink">
+					<input type="text" class="form-control" id="menuLnk" placeholder="Menu Link Name" readonly ng-model="formData.method">
 					<span class="help-block">Allowed String (A-Z,0-9,_) </span>
 				</div>
 			</div>
@@ -78,8 +80,8 @@ var url="/resource/accessCode";
                             </th>
 							<th>Access Code</th>
 							<th>Access Code Description</th>
-							<th>Module</th>
-							<th>Menu Links</th>
+							<th>Mapping</th>
+							<th>Method</th>
 							<th>Delete</th>
 						</tr>
 					</thead>
@@ -89,8 +91,8 @@ var url="/resource/accessCode";
 							<td>{{acsCode.id}}</td>
 							<td>{{acsCode.accessCode}}</td>
 							<td>{{acsCode.accessDesc}}</td>
-							<td>{{acsCode.module}}</td>
-							<td>{{acsCode.menuLink}}</td>
+							<td>{{acsCode.mapping}}</td>
+							<td>{{acsCode.method}}</td>
 							<td>
 							<button type="button" class="btn  btn-danger" ng-click="del(acsCode)">
 							<span class=" fa fa-trash">&nbsp</span>
@@ -103,7 +105,6 @@ var url="/resource/accessCode";
 			</div>
 	</div>
 </div>
-
 </div>
 
 </main>

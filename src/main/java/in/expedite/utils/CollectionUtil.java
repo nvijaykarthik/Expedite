@@ -3,6 +3,8 @@ package in.expedite.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.expedite.entity.UserRole;
+
 
 public class CollectionUtil{
   
@@ -24,4 +26,13 @@ public class CollectionUtil{
     return list;
   }
   
+  
+  public static List<String> getList(List<UserRole> userRoles){
+	  List<String> roleCode=new ArrayList<>();
+	  for(UserRole userRole:userRoles){
+		  roleCode.add(userRole.getRoleCode());
+	  }
+	return roleCode;
+	  
+  }
 }

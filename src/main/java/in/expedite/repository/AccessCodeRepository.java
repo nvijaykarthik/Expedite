@@ -6,4 +6,6 @@ import in.expedite.entity.AccessCode;
 
 public interface AccessCodeRepository extends JpaRepository<AccessCode, Long>{
 
+	public AccessCode findByMappingAndMethod(String mapping,String method);
+	
 }

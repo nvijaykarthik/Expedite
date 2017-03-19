@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import in.expedite.entity.AccessCode;
 import in.expedite.entity.MyUser;
 import in.expedite.entity.Role;
 import in.expedite.entity.State;

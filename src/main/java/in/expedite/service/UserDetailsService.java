@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import in.expedite.entity.MyUser;
+import in.expedite.entity.RoleAccessXref;
 import in.expedite.entity.User;
-import in.expedite.entity.UserRole;
 
 @Component
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService{
@@ -55,9 +55,9 @@ public class UserDetailsService implements org.springframework.security.core.use
     private List<GrantedAuthority> getGrantedAuthorities(User user){
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
          
-        for(UserRole userRole : userService.getUserRoles(user.getUserId())){
-          LOG.info("Logged in User Role: "+userRole.getRoleCode());
-            authorities.add(new SimpleGrantedAuthority(userRole.getRoleCode()));//+userProfile.getType()));
+        for(RoleAccessXref roleAccessXref: userService.getUserRoles(user.getUserId())){
+          LOG.info("Logged in User Role: "+roleAccessXref.getAccessCode());
+            authorities.add(new SimpleGrantedAuthority(roleAccessXref.getAccessCode()));//+userProfile.getType()));
        }
             LOG.info("authorities :"+authorities);
         return authorities;
