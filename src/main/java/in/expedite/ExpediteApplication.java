@@ -1,13 +1,16 @@
 package in.expedite;
 
-import java.security.Principal;
-
 import javax.servlet.Filter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -17,13 +20,14 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -33,12 +37,12 @@ import in.expedite.auth.JwtAuthenticationFilter;
 import in.expedite.auth.JwtAuthenticationProvider;
 import in.expedite.auth.JwtAuthenticationSuccessHandler;
 import in.expedite.auth.RestAuthenticationEntryPoint;
-import in.expedite.entity.MyUser;
 import in.expedite.service.UserDetailsService;
 
 @SpringBootApplication
 @RestController
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableCaching
 public class ExpediteApplication extends SpringBootServletInitializer  {
 
 
@@ -47,13 +51,41 @@ public class ExpediteApplication extends SpringBootServletInitializer  {
 		SpringApplication.run(ExpediteApplication.class, args);
 	}
 	
+	@Component
+	protected class CacheManagerCheck implements CommandLineRunner {
+
+		private final Logger logger = LoggerFactory.getLogger(CacheManagerCheck.class);
+
+		private final CacheManager cacheManager;
+
+		public CacheManagerCheck(CacheManager cacheManager) {
+			this.cacheManager = cacheManager;
+		}
+
+		@Override
+		public void run(String... strings) throws Exception {
+			logger.info("\n\n" + "=========================================================\n"
+					+ "Using cache manager: " + this.cacheManager.getClass().getName() + "\n"
+					+ "=========================================================\n\n");
+		}
+	}
+	
    @Configuration
    protected static class AuthServer extends WebMvcConfigurerAdapter{
-	@Override
+	
+	  @Autowired 
+	  HandlerInterceptor authorizationInterceptor;
+	  
+	 @Override
 	 public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/login").setViewName("login");
 	 }
 	
+	 
+	 @Override
+	  public void addInterceptors(InterceptorRegistry registry) {
+		 registry.addInterceptor(authorizationInterceptor);
+	 }
    }
    
 	@Configuration

@@ -5,6 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import in.expedite.entity.AccessCode;
@@ -16,6 +18,7 @@ import in.expedite.repository.AccessCodeRepository;
  *
  */
 @Component
+@CacheConfig(cacheNames = "accessCode")
 public class AccessCodeService {
 
 	@Autowired
@@ -47,5 +50,15 @@ public class AccessCodeService {
 		 List<AccessCode> ac=acRepo.findAll();
 		LOG.trace("Access codes : "+ac);
 		return ac;
+	}
+	
+	@Cacheable
+	public String getAccessCodeForMappings(String mapping,String method){
+		LOG.debug("Retrieving Access codes for "+mapping+" on "+ method);
+		AccessCode accessCode=acRepo.findByMappingAndMethod(mapping, method);
+		if(null==accessCode){
+			return null;
+		}
+		return accessCode.getAccessCode();
 	}
 }

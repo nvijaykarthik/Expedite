@@ -14,16 +14,17 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import in.expedite.entity.AccessCode;
 import in.expedite.entity.Role;
 import in.expedite.entity.RoleAccessXref;
 import in.expedite.entity.State;
 import in.expedite.entity.User;
 import in.expedite.entity.UserRole;
+import in.expedite.repository.RoleAccessXrefRepository;
 import in.expedite.repository.UserRepository;
 import in.expedite.repository.UserRoleRepository;
 import in.expedite.repository.UserServiceDAO;
 import in.expedite.specification.SpecificationUtils;
+import in.expedite.utils.CollectionUtil;
 
 @Component
 @Transactional
@@ -36,6 +37,9 @@ public class UserService {
 
 	@Autowired
 	UserRoleRepository userRoleRepo;
+	
+	@Autowired
+	RoleAccessXrefRepository roleAccessrepo;
 	
 	
 	@Autowired
@@ -158,9 +162,9 @@ public class UserService {
 		userRoleRepo.deleteByUserIdAndRoleCode(userId,roleCode);
 	}
 
-	public List<UserRole> getUserRoles(String userId){
+	public List<RoleAccessXref> getUserRoles(String userId){
 		log.debug("getList of user roles");
-		return userRoleRepo.findByUserId(userId);
+		return roleAccessrepo.findByRoleCodeIn(CollectionUtil.getList(userRoleRepo.findByUserId(userId)));
 	}
 	
 	public List<Role> getActiveRolesForUser(String userId){

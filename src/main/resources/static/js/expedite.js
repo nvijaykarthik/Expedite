@@ -333,6 +333,25 @@ app.controller('accessCodeController', function($scope,$http,$log) {
     }
 
    
+    //get the resource url and methods
+    	    $http({
+    	        method :"GET" ,
+    	        url : "/resource/config/mappings",
+    	    }).then(function success(response) {
+    	    	$log.log(response.data.content)
+                $scope.mappings = response.data;
+    	    }, function failure(response) {
+    	         $log.error(response.status)
+                 $scope.showerror=true;
+                 $scope.error=response.data.message;
+    	    });
+    $scope.update=function(){
+    	var selectedMapping=$("#accessMapping").val();
+    	var mapAndMet = selectedMapping.split(":");
+    	$scope.formData.mapping=mapAndMet[0];
+    	$scope.formData.method=mapAndMet[1];
+    }
+    	    
     $scope.del=function (accessCode)
     {
         $scope.resetPage();

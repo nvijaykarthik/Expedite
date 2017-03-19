@@ -1,20 +1,24 @@
 package in.expedite.web.resource;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import in.expedite.entity.Configuration;
-import in.expedite.entity.MyUser;
 import in.expedite.service.ConfigurationService;
 import in.expedite.utils.ExJsonResponse;
 
@@ -25,6 +29,9 @@ public class ConfigurationController {
 
 	@Autowired
 	ConfigurationService cs;
+	
+	@Autowired
+	private RequestMappingHandlerMapping handlerMapping;
 	
 	private static final Logger LOG = LoggerFactory.getLogger(ConfigurationController.class);
 	
@@ -48,6 +55,17 @@ public class ConfigurationController {
 		LOG.info("Updating existing configuration property" + cfg.toString());
 		cs.saveConfiguration(cfg);
 		return new ExJsonResponse(0,"Sucessfully Updated");
+	}
+	
+	@RequestMapping(path="/mappings",produces="application/json",method=RequestMethod.GET)
+	public Set<RequestMappingInfo>  getMappings()	{
+		//RequestMappingInfo 
+		List<PatternsRequestCondition> pattern=new ArrayList<>();
+		for(RequestMappingInfo info:handlerMapping.getHandlerMethods().keySet()){
+			pattern.add(info.getPatternsCondition());
+		}
+		LOG.info("List of mappings:" + pattern);
+		return handlerMapping.getHandlerMethods().keySet();
 	}
 	
 }

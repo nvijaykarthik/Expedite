@@ -16,4 +16,6 @@ public interface RoleAccessXrefRepository extends JpaRepository<RoleAccessXref, 
 	@Modifying
 	@Query("delete from RoleAccessXref where roleCode=:roleCode and accessCode=:accessCode")
 	public void delete(@Param(value = "roleCode") String roleCode,@Param(value = "accessCode") String accessCode);
+	
+	public List<RoleAccessXref> findByRoleCodeIn(List<String> roleCode); 
 }
