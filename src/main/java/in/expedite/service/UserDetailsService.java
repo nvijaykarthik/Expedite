@@ -11,14 +11,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import in.expedite.entity.MyUser;
 import in.expedite.entity.RoleAccessXref;
 import in.expedite.entity.User;
 
-@Component
+@Service
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService{
 
 	@Autowired

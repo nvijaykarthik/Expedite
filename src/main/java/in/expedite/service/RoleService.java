@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import in.expedite.entity.AccessCode;
 import in.expedite.entity.Role;
@@ -20,7 +20,7 @@ import in.expedite.entity.State;
 import in.expedite.repository.RoleAccessXrefRepository;
 import in.expedite.repository.RoleRepository;
 
-@Component
+@Service
 @Transactional
 public class RoleService {
 

@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import in.expedite.entity.AccessCode;
 import in.expedite.repository.AccessCodeRepository;
@@ -17,7 +17,7 @@ import in.expedite.repository.AccessCodeRepository;
  * @author vijaykarthik N 
  *
  */
-@Component
+@Service
 @CacheConfig(cacheNames = "accessCode")
 public class AccessCodeService {
 

@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import in.expedite.entity.Role;
 import in.expedite.entity.RoleAccessXref;
@@ -26,7 +26,7 @@ import in.expedite.repository.UserServiceDAO;
 import in.expedite.specification.SpecificationUtils;
 import in.expedite.utils.CollectionUtil;
 
-@Component
+@Service
 @Transactional
 public class UserService {
 
