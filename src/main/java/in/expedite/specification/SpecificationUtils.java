@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -12,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
 import in.expedite.entity.Configuration;
+import in.expedite.entity.Departments;
 import in.expedite.entity.User;
 
 public class SpecificationUtils {
@@ -67,4 +69,26 @@ public class SpecificationUtils {
 		};
 
 	}
+
+	public static Specification<Departments> getDepartmentsSpecs(String departmentName, String manager) {
+
+		return new Specification<Departments>(){
+
+			@Override
+			public Predicate toPredicate(Root<Departments> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				List<Predicate> predicates = new ArrayList<>();
+
+				if (!StringUtils.isEmpty(departmentName)) {
+					predicates.add(cb.like(cb.lower(root.get("departmentName")), "%" + departmentName.toLowerCase() + "%"));
+				}
+				if (!StringUtils.isEmpty(manager)) {
+					Join<Departments, User> mngr = root.join("manager");
+					predicates.add(cb.like(cb.lower(mngr.get("userId")), "%" + manager.toLowerCase() + "%"));
+				}
+					return cb.and(predicates.toArray(new Predicate[] {}));
+			}
+			
+		};
+	}
+	
 }

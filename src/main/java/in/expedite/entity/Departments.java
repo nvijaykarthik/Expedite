@@ -65,6 +65,14 @@ public class Departments {
 	@Override
 	public String toString() {
 		return "Departments [id=" + id + ", departmentName=" + departmentName + ", parentDepartment=" + parentDepartment
-				+ ", subDepartment=" + subDepartment + "]";
+				+ ", subDepartment=" + subDepartment + ", manager=" + manager + "]";
+	}
+
+	public User getManager() {
+		return manager;
+	}
+
+	public void setManager(User manager) {
+		this.manager = manager;
 	}
 }
