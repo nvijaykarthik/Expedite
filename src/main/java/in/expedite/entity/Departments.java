@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -24,10 +25,10 @@ public class Departments {
 	@ManyToOne
 	private Departments parentDepartment;
 	
-    @OneToMany(mappedBy="parentDepartment")
+    @OneToMany(mappedBy="parentDepartment" )
     private Set<Departments> subDepartment;
 
-    @OneToOne 
+    @ManyToOne
     private User manager;
     
 	public Long getId() {

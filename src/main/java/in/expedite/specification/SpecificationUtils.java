@@ -82,8 +82,8 @@ public class SpecificationUtils {
 					predicates.add(cb.like(cb.lower(root.get("departmentName")), "%" + departmentName.toLowerCase() + "%"));
 				}
 				if (!StringUtils.isEmpty(manager)) {
-					Join<Departments, User> mngr = root.join("manager");
-					predicates.add(cb.like(cb.lower(mngr.get("userId")), "%" + manager.toLowerCase() + "%"));
+					final Predicate mngrPredicate = cb.like(root.join("manager").get("userId"),"%" + manager.toLowerCase() + "%");
+					predicates.add(mngrPredicate);
 				}
 					return cb.and(predicates.toArray(new Predicate[] {}));
 			}

@@ -1,10 +1,13 @@
 package in.expedite.entity;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -68,8 +71,8 @@ public class User {
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")  
 	private Date modifiedDate=new Date();
 	
-	@OneToOne(mappedBy="manager")
-	private Departments department;
+	@OneToMany(mappedBy="manager",cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Departments> department;
 	
 	public String getUserId() {
 		return userId;
@@ -141,7 +144,15 @@ public class User {
 	public String toString() {
 		return "User [userId=" + userId + ", firstName=" + firstName + ", secondName=" + secondName + ", email=" + email
 				+ ", password=" + password + ", state=" + state + ", createdDate=" + createdDate + ", modifiedDate="
-				+ modifiedDate + "]";
+				+ modifiedDate + ", department=" + department + "]";
+	}
+
+	public Set<Departments> getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Set<Departments> department) {
+		this.department = department;
 	}
 
 	

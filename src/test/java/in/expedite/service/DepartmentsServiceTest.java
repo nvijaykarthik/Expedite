@@ -22,10 +22,14 @@ public class DepartmentsServiceTest {
 	
 	@Test
 	public void getDepartments(){
-		LOG.info("departments "+depService.getDepartments(0, null, "vkarthik"));
+		depService.getDepartments(0, null, "vkarthik").forEach(dep->{
+			LOG.info("departments :"+dep);
+		});
+		
 	}
 	
-	@Test
+
+
 	public void addDept(){
 		User user = new User();
 		user.setUserId("vkarthik");
@@ -36,14 +40,12 @@ public class DepartmentsServiceTest {
 		
 		depService.addDepartment(dept);
 		
+		user = new User();
+		user.setUserId("bbroko");
 		dept.setDepartmentName("Gopal DEPT1");
 		dept.setManager(user);
 		
 		depService.addDepartment(dept);
-		
-		dept.setDepartmentName("Gopal DEPT2");
-		dept.setManager(user);
-		
-		depService.addDepartment(dept);
+
 	}
 }
