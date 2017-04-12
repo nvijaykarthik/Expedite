@@ -8,11 +8,36 @@ app.controller('departmentsController', function($scope,$http,$log,$httpParamSer
 	var clearData=function(){
 		
 	}
-	var edit=function(){
-		
+	
+	$scope.edit=function(content){
+		$scope.formData['departmentName']=content.departmentName;
+		$scope.formData['id']=content.id;
 	}
-	var save=function(){
-		
+	
+	$scope.save=function(){
+	$scope.resetPage();
+	if(typeof $scope.departObj !== 'undefined'){
+		$scope.formData['parentDepartmentId']= $scope.departObj.originalObject.id;
+	}
+	$scope.formData['managerId']=$scope.managerObj.originalObject.userId;
+   	 $http({
+            method  : 'POST',
+            url     : url,
+            data    : $scope.formData,
+            headers : {'Content-Type': 'application/json'}
+           }).then(
+                   function success(resp){
+                       $log.info(resp.data)
+                       $scope.refresh();
+                       $scope.showsucess=true;
+                       $scope.success=resp.data.message;
+                       $scope.formData = {};
+                    },
+                   function failure(resp){
+                   $log.error(resp.status)
+                    $scope.showerror=true;
+                    $scope.error=resp.data.message;
+                   });
 	}
 	
 	
