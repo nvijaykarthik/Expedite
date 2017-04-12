@@ -37,12 +37,10 @@ app.controller('departmentsController', function($scope,$http,$log,$httpParamSer
 	    $scope.resetPage();
 		    $http({
 		        method : "GET",
-		        url : url+ "?p="+$scope.currentPage+"&"+$httpParamSerializerJQLike($scope.search)
+		        url : url
 		    }).then(function success(response) {
 		    	$log.log(response.data.content)
-	             $scope.configurationList = response.data.content;
-		    	 $scope.itemsPerPage = response.data.size;
-		    	 $scope.totalPages=response.data.totalPages
+	             $scope.contentList = response.data;
 		    }, function failure(response) {
 		        $log.error(response.status)
 	             $scope.showerror=true;

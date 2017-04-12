@@ -70,9 +70,7 @@ public class User {
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")  
 	private Date modifiedDate=new Date();
-	
-	@OneToMany(mappedBy="manager",cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Departments> department;
+
 	
 	public String getUserId() {
 		return userId;
@@ -144,17 +142,8 @@ public class User {
 	public String toString() {
 		return "User [userId=" + userId + ", firstName=" + firstName + ", secondName=" + secondName + ", email=" + email
 				+ ", password=" + password + ", state=" + state + ", createdDate=" + createdDate + ", modifiedDate="
-				+ modifiedDate + ", department=" + department + "]";
+				+ modifiedDate + "]";
 	}
-
-	public Set<Departments> getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Set<Departments> department) {
-		this.department = department;
-	}
-
-	
-	
 }
+
+	

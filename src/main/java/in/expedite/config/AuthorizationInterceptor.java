@@ -30,8 +30,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 	 * This implementation always returns {@code true}.
 	 */
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)throws Exception {
 		@SuppressWarnings("unchecked")
 		List<GrantedAuthority> authorities=(List<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 		String currentUrl=request.getRequestURI();

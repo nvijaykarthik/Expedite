@@ -7,7 +7,7 @@
 		<div class="page-header">
 			<div class="row">
 				<!-- Page header, center on small screens -->
-				<h1 class="col-xs-12 col-sm-4 text-center text-left-sm"><i class="fa fa-dashboard page-header-icon"></i>&nbsp;&nbsp;Configuration</h1>
+				<h1 class="col-xs-12 col-sm-4 text-center text-left-sm"><i class="fa fa-dashboard page-header-icon"></i>&nbsp;&nbsp;Departments/Groups</h1>
 				<div class="col-xs-12 col-sm-8"></div>
 			</div>
 		</div> <!-- / .page-header -->
@@ -29,29 +29,9 @@ var url="/resource/departments";
 <div class="col-md-3">
 	<div class="panel panel-info panel-dark">
 		<div class="panel-body">
-   		 <button class="btn btn-primary" ng-click="clearData()" data-toggle="modal" data-target="#newDeptModal"><span class=" fa fa-plus">&nbsp</span>Add New User</button>
+   		 <button class="btn btn-primary" ng-click="clearData()" data-toggle="modal" data-target="#newDeptModal"><span class=" fa fa-plus">&nbsp</span>Add New Department</button>
      	</div>
 	</div>
-	<div class="panel panel-info panel-dark">
-		<div class="panel-body">
-   		<form class="form-horizontal">
-			<div class="form-group">
-				<label  class="control-label">Department Name</label>
-				<div>
-					<input type="text" class="form-control" id="userName" placeholder="User Name" ng-model="filterData.userId">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label">Manager</label>
-				<div>
-					<input type="text" class="form-control" id="lastname" placeholder="Last Name" ng-model="filterData.lastName">
-				</div>
-			</div>
-			 <button class="btn btn-success" ng-click="filter()"><span class=" fa fa-search">&nbsp</span>Filter</button>
-   		</form>
-  		</div>
-	</div>
-	
 </div>
 <div class="col-md-9">
 <div class="panel panel-success panel-dark">
@@ -67,14 +47,16 @@ var url="/resource/departments";
 							<th>Department Name</th>
 							<th>Parent Department</th>
 							<th>Manager</th>
+							<th>Operation</th>
 						</tr>
 					</thead>
 					<tbody>
-					<tr ng-repeat="content in contentList">
+					<input type="text" ng-model="searchKeyword" class="form-control ng-valid ng-dirty" id="searchTable" placeholder="Search table"/>
+					<tr ng-repeat="content in contentList | filter: searchKeyword ">
 							<td>{{$index}}</td>
 							<td>{{content.departmentName}}</td>
-							<td>{{content.parentDepartment}}</td>
-							<td>{{content.manager}}</td>
+							<td>{{content.parentDepartmentId}}</td>
+							<td>{{content.managerId}}</td>
 							<td>
 							<button type="button" class="btn  btn-info btn-sm " ng-click="edit(content)" data-toggle="modal" data-target="#editUserModal">
 							 <span class=" fa fa-pencil">&nbsp</span>
@@ -84,21 +66,7 @@ var url="/resource/departments";
 						</tr>
 					</tbody>
 				</table>
-				
-				<div>
-		            <ul class="pagination">
-		              <li ng-class="prevPageDisabled()">
-		                <a href ng-click="prevPage()">« Prev</a>
-		              </li>
-		              <li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
-		                <a class="pointer">{{n+1}}</a>
-		              </li>
-		              <li ng-class="nextPageDisabled()">
-		                <a href ng-click="nextPage()">Next »</a>
-		              </li>
-		            </ul>
-		          </div>
-				
+			
 			</div>
 	</div>
 </div>
@@ -119,22 +87,22 @@ var url="/resource/departments";
 			<div class="form-group">
 				<label  class="control-label">Department Name</label>
 				<div>
-					<input type="text" class="form-control" id="userName" placeholder="User Name" ng-model="formData.userId">
-					<span class="help-block">choose the user Id : [a-zA-Z0-9] </span>
+					<input type="text" class="form-control" id="deptName" placeholder="Department Name" ng-model="formData.departmentName">
+					<span class="help-block">Allowed : [a-zA-Z0-9] </span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label">Parent Department </label>
 				<div>
-					<input type="text" class="form-control" id="firstname" placeholder="First Name" ng-model="formData.firstName">
-					<span class="help-block">First Name : [a-zA-Z0-9] </span>
+					<input type="text" class="form-control" id="parent Dept" placeholder="Parent Department" ng-model="formData.parentDept">
+					<span class="help-block">select from list  </span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label">Manager</label>
 				<div>
-					<input type="text" class="form-control" id="lastname" placeholder="Last Name" ng-model="formData.secondName">
-					<span class="help-block">Last Name : [a-zA-Z0-9] </span>
+					<input type="text" class="form-control" id="manager" placeholder="Manager " ng-model="formData.mngr">
+					<span class="help-block">Select from List </span>
 				</div>
 			</div>
 		</form>

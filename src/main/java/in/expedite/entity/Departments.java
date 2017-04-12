@@ -19,17 +19,14 @@ public class Departments {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	@Column(nullable=false)
+	@Column(nullable=false,unique=true)
 	private String departmentName;
 	
-	@ManyToOne
-	private Departments parentDepartment;
+	@Column(nullable=true)
+	private Long parentDepartmentId;
 	
-    @OneToMany(mappedBy="parentDepartment" )
-    private Set<Departments> subDepartment;
-
-    @ManyToOne
-    private User manager;
+	@Column(nullable=true)
+	private String managerId;
     
 	public Long getId() {
 		return id;
@@ -47,33 +44,28 @@ public class Departments {
 		this.departmentName = departmentName;
 	}
 
-	public Departments getParentDepartment() {
-		return parentDepartment;
+
+
+	public Long getParentDepartmentId() {
+		return parentDepartmentId;
 	}
 
-	public void setParentDepartment(Departments parentDepartment) {
-		this.parentDepartment = parentDepartment;
+	public void setParentDepartmentId(Long parentDepartmentId) {
+		this.parentDepartmentId = parentDepartmentId;
 	}
 
-	public Set<Departments> getSubDepartment() {
-		return subDepartment;
+	public String getManagerId() {
+		return managerId;
 	}
 
-	public void setSubDepartment(Set<Departments> subDepartment) {
-		this.subDepartment = subDepartment;
+	public void setManagerId(String managerId) {
+		this.managerId = managerId;
 	}
 
 	@Override
 	public String toString() {
-		return "Departments [id=" + id + ", departmentName=" + departmentName + ", parentDepartment=" + parentDepartment
-				+ ", subDepartment=" + subDepartment + ", manager=" + manager + "]";
+		return "Departments [id=" + id + ", departmentName=" + departmentName + ", parentDepartmentId="
+				+ parentDepartmentId + ", managerId=" + managerId + "]";
 	}
 
-	public User getManager() {
-		return manager;
-	}
-
-	public void setManager(User manager) {
-		this.manager = manager;
-	}
 }

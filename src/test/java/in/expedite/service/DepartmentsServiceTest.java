@@ -22,30 +22,12 @@ public class DepartmentsServiceTest {
 	
 	@Test
 	public void getDepartments(){
-		depService.getDepartments(0, null, "vkarthik").forEach(dep->{
+		/*depService.getDepartments(0, null, "vkarthik").forEach(dep->{
+			LOG.info("departments :"+dep);
+		});*/
+		depService.getAllDepartments().forEach(dep->{
 			LOG.info("departments :"+dep);
 		});
-		
 	}
 	
-
-
-	public void addDept(){
-		User user = new User();
-		user.setUserId("vkarthik");
-		
-		Departments dept = new Departments();
-		dept.setDepartmentName("Gopal DEPT");
-		dept.setManager(user);
-		
-		depService.addDepartment(dept);
-		
-		user = new User();
-		user.setUserId("bbroko");
-		dept.setDepartmentName("Gopal DEPT1");
-		dept.setManager(user);
-		
-		depService.addDepartment(dept);
-
-	}
 }

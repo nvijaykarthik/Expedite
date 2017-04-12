@@ -1,5 +1,7 @@
 package in.expedite.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
@@ -32,5 +34,10 @@ public class DepartmentsService {
 	
 	public Departments addDepartment(Departments dept){
 		return departmentRepo.save(dept);
+	}
+	
+	
+	public Iterable<Departments> getAllDepartments(){
+		return departmentRepo.findAll();
 	}
 }
