@@ -15,5 +15,5 @@ public interface UserRepository extends JpaRepository<User, Integer>,JpaSpecific
 	@Query("Select u from User u where u.userId=?1")
 	public User findUserIdQuery(String userId); 
 
-		
+	public Iterable<User> findByFirstNameContainingIgnoreCaseOrSecondNameContainingIgnoreCase(String firstName, String secondName);
 }

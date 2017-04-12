@@ -11,4 +11,5 @@ import in.expedite.entity.Departments;
 
 public interface DepartmentsRepository extends PagingAndSortingRepository<Departments, Integer>,JpaSpecificationExecutor<Departments>{
 
+	public Iterable<Departments> findByDepartmentNameContainingIgnoreCase(String departmentName);
 }

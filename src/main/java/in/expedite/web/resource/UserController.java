@@ -35,6 +35,12 @@ public class UserController {
 		return user;
 	}
 	
+	
+	@RequestMapping(method=RequestMethod.GET,produces="application/json",path="/searchByName")
+	public Iterable<User> getUsersbyName(@RequestParam("s") String name){
+		return userService.findUserByName(name);
+	}
+	
 	@RequestMapping(method=RequestMethod.GET,produces="application/json")
 	public Iterable<User> getUsers(@RequestParam("p") Integer pageNo,
 			@RequestParam(name="userId",required=false) String userId,

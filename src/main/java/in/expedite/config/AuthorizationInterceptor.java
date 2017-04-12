@@ -1,5 +1,6 @@
 package in.expedite.config;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,8 +32,12 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)throws Exception {
-		@SuppressWarnings("unchecked")
-		List<GrantedAuthority> authorities=(List<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		List<GrantedAuthority> authorities=Collections.emptyList();
+		try{
+			authorities=(List<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		}catch (NullPointerException e) {
+			return true;
+		}
 		String currentUrl=request.getRequestURI();
 		String currentMethod=request.getMethod();
 		String accessCode=accService.getAccessCodeForMappings(currentUrl, currentMethod);

@@ -40,4 +40,10 @@ public class DepartmentsService {
 	public Iterable<Departments> getAllDepartments(){
 		return departmentRepo.findAll();
 	}
+	
+	public Iterable<Departments> getDepartmentsByName(String deptName){
+		return departmentRepo.findByDepartmentNameContainingIgnoreCase(deptName);
+	}
+	
+	
 }

@@ -19,8 +19,9 @@ public class UserServiceTest {
 	
 	@Test
 	public void searchUser(){
-		userService.searchUser(null, "", null, "", null, 0);
-		userService.searchUser("vkarthik", "", null, "", null, 0);
-		userService.searchUser("vkarthik", "", null, "", "Active", 0);
+		userService.findUserByName("vijay").forEach(usr->{
+			log.info(usr.toString());
+		});
+		
 	}
 }

@@ -180,4 +180,8 @@ public class UserService {
 		});
 		return roles;
 	}
+	
+	public Iterable<User> findUserByName(String name){
+		return userRepository.findByFirstNameContainingIgnoreCaseOrSecondNameContainingIgnoreCase(name,name);
+	}
 }

@@ -79,7 +79,7 @@ var url="/resource/departments";
 		<div class="modal-content">
 		  <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<h4 class="modal-title" id="myModalLabel">User </h4>
+			<h4 class="modal-title" id="myModalLabel">Add New Department </h4>
 		  </div>
 		  <div class="modal-body">
 			 <div style="padding:15px;">
@@ -94,15 +94,19 @@ var url="/resource/departments";
 			<div class="form-group">
 				<label class="control-label">Parent Department </label>
 				<div>
-					<input type="text" class="form-control" id="parent Dept" placeholder="Parent Department" ng-model="formData.parentDept">
-					<span class="help-block">select from list  </span>
+					<angucomplete id="Parent_Department" placeholder="Select Department" pause="400"  selectedobject="departObj"
+		              url="/resource/departments/search?s="
+		              titlefield="departmentName"
+		              inputclass="form-control" minlength="4"/>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label">Manager</label>
 				<div>
-					<input type="text" class="form-control" id="manager" placeholder="Manager " ng-model="formData.mngr">
-					<span class="help-block">Select from List </span>
+					<angucomplete id="manager" placeholder="Select Manager" pause="400"  selectedobject="managerObj"
+		              url="/resource/users/searchByName?s="
+		              titlefield="firstName,secondName"
+		              inputclass="form-control" minlength="4"/>
 				</div>
 			</div>
 		</form>

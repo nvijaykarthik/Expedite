@@ -28,4 +28,10 @@ public class DepartmentsController {
 	public Iterable<Departments> getAllDepartments(){
 		return departmentService.getAllDepartments();
 	}
+	
+	
+	@RequestMapping(method=RequestMethod.GET,produces="application/json",path="/search")
+	public Iterable<Departments> getDepartmentsByName(@RequestParam(required=false,name="s") String departmentName){
+		return departmentService.getDepartmentsByName(departmentName);
+	}
 }

@@ -20,14 +20,22 @@ public class DepartmentsServiceTest {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(DepartmentsServiceTest.class);
 	
+
 	@Test
 	public void getDepartments(){
 		/*depService.getDepartments(0, null, "vkarthik").forEach(dep->{
 			LOG.info("departments :"+dep);
 		});*/
-		depService.getAllDepartments().forEach(dep->{
+		depService.getDepartmentsByName("Arch").forEach(dep->{
 			LOG.info("departments :"+dep);
 		});
 	}
 	
+	
+	public void addDepartmentTest(){
+		Departments deps = new Departments();
+		deps.setDepartmentName("Architects");
+		deps.setManagerId("vn72");
+		depService.addDepartment(deps);
+	}
 }
