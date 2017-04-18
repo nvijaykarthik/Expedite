@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
 import in.expedite.entity.Configuration;
-import in.expedite.entity.Departments;
+import in.expedite.entity.Department;
 import in.expedite.entity.User;
 
 public class SpecificationUtils {
@@ -70,12 +70,12 @@ public class SpecificationUtils {
 
 	}
 
-	public static Specification<Departments> getDepartmentsSpecs(String departmentName, String manager) {
+	public static Specification<Department> getDepartmentsSpecs(String departmentName, String manager) {
 
-		return new Specification<Departments>(){
+		return new Specification<Department>(){
 
 			@Override
-			public Predicate toPredicate(Root<Departments> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+			public Predicate toPredicate(Root<Department> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				List<Predicate> predicates = new ArrayList<>();
 
 				if (!StringUtils.isEmpty(departmentName)) {

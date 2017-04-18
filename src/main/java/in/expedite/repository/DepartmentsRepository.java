@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
-import in.expedite.entity.Departments;
+import in.expedite.entity.Department;
 
-public interface DepartmentsRepository extends PagingAndSortingRepository<Departments, Integer>,JpaSpecificationExecutor<Departments>{
+public interface DepartmentsRepository extends PagingAndSortingRepository<Department, Integer>,JpaSpecificationExecutor<Department>{
 
-	public Iterable<Departments> findByDepartmentNameContainingIgnoreCase(String departmentName);
+	public Iterable<Department> findByDepartmentNameContainingIgnoreCase(String departmentName);
 }

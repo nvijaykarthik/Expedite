@@ -1,6 +1,7 @@
 package in.expedite.entity;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -59,7 +60,6 @@ public class User {
 	@Column(name="STATE", nullable=false)
 	private String state=State.ACTIVE.getState();
 	
-
 	
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
@@ -70,7 +70,6 @@ public class User {
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")  
 	private Date modifiedDate=new Date();
-
 	
 	public String getUserId() {
 		return userId;
@@ -119,8 +118,6 @@ public class User {
 	public void setState(String state) {
 		this.state = state;
 	}
-
-
 
 	public Date getCreatedDate() {
 		return createdDate;

@@ -9,7 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import in.expedite.entity.Departments;
+import in.expedite.entity.Department;
 import in.expedite.entity.User;
 import in.expedite.repository.DepartmentsRepository;
 import in.expedite.specification.SpecificationUtils;
@@ -23,25 +23,25 @@ public class DepartmentsService {
 	@Autowired
 	DepartmentsRepository departmentRepo;
 	
-	public Iterable<Departments> getDepartments(@RequestParam("p") Integer pageNo,
+	public Iterable<Department> getDepartments(@RequestParam("p") Integer pageNo,
 			@RequestParam String departmentName,@RequestParam String manager){
 		
 		PageRequest pg = new PageRequest(pageNo, pageSize);
-		Specification<Departments> spec = SpecificationUtils.getDepartmentsSpecs(departmentName, manager);
+		Specification<Department> spec = SpecificationUtils.getDepartmentsSpecs(departmentName, manager);
 		
 		return departmentRepo.findAll(spec, pg);
 	}
 	
-	public Departments addDepartment(Departments dept){
+	public Department addDepartment(Department dept){
 		return departmentRepo.save(dept);
 	}
 	
 	
-	public Iterable<Departments> getAllDepartments(){
+	public Iterable<Department> getAllDepartments(){
 		return departmentRepo.findAll();
 	}
 	
-	public Iterable<Departments> getDepartmentsByName(String deptName){
+	public Iterable<Department> getDepartmentsByName(String deptName){
 		return departmentRepo.findByDepartmentNameContainingIgnoreCase(deptName);
 	}
 	

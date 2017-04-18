@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import in.expedite.entity.Departments;
+import in.expedite.entity.Department;
 import in.expedite.service.DepartmentsService;
 import in.expedite.utils.ExJsonResponse;
 
@@ -21,25 +21,25 @@ public class DepartmentsController {
 	DepartmentsService departmentService;
 	
 	@RequestMapping(path="/pagable",method=RequestMethod.GET,produces="application/json")
-	public Iterable<Departments> getDepartments(@RequestParam("p") Integer pageNo,@RequestParam(required=false) String departmentName,@RequestParam(required=false) String manager){
+	public Iterable<Department> getDepartments(@RequestParam("p") Integer pageNo,@RequestParam(required=false) String departmentName,@RequestParam(required=false) String manager){
 		return departmentService.getDepartments(pageNo, departmentName, manager);
 	}
 	
 	
 	@RequestMapping(method=RequestMethod.GET,produces="application/json")
-	public Iterable<Departments> getAllDepartments(){
+	public Iterable<Department> getAllDepartments(){
 		return departmentService.getAllDepartments();
 	}
 	
 	
 	@RequestMapping(method=RequestMethod.GET,produces="application/json",path="/search")
-	public Iterable<Departments> getDepartmentsByName(@RequestParam(required=false,name="s") String departmentName){
+	public Iterable<Department> getDepartmentsByName(@RequestParam(required=false,name="s") String departmentName){
 		return departmentService.getDepartmentsByName(departmentName);
 	}
 	
 	
 	@RequestMapping(method=RequestMethod.POST,produces="application/json")
-	public ExJsonResponse addDepartment(@RequestBody Departments deps){
+	public ExJsonResponse addDepartment(@RequestBody Department deps){
 		departmentService.addDepartment(deps);
 		return new ExJsonResponse(0,"Sucessfully Added");
 	}

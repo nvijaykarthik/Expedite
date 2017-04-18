@@ -30,7 +30,7 @@ import in.expedite.utils.CollectionUtil;
 @Transactional
 public class UserService {
 
-	private static final Logger log = LoggerFactory.getLogger(UserServiceTest.class);
+	private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
 	@Autowired
 	UserRepository userRepository;

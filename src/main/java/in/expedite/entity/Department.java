@@ -1,5 +1,7 @@
 package in.expedite.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -13,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Departments {
+public class Department {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -28,6 +30,9 @@ public class Departments {
 	@Column(nullable=true)
 	private String managerId;
     
+	@OneToMany(mappedBy="id")
+	private List<Team> teams = new ArrayList<>();
+	
 	public Long getId() {
 		return id;
 	}
@@ -66,6 +71,14 @@ public class Departments {
 	public String toString() {
 		return "Departments [id=" + id + ", departmentName=" + departmentName + ", parentDepartmentId="
 				+ parentDepartmentId + ", managerId=" + managerId + "]";
+	}
+
+	public List<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(List<Team> teams) {
+		this.teams = teams;
 	}
 
 }
