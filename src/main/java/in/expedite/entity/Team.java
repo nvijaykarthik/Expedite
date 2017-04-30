@@ -1,14 +1,11 @@
 package in.expedite.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Team {
@@ -23,8 +20,8 @@ public class Team {
 	@Column
 	private String managerId;
 
-	@ManyToOne
-	private Department department;
+	@Column
+	private Long departmentId;
 
 	
 	@Override
@@ -56,12 +53,12 @@ public class Team {
 		this.managerId = managerId;
 	}
 
-	public Department getDepartment() {
-		return department;
+	public Long getDepartmentId() {
+		return departmentId;
 	}
 
-	public void setDepartment(Department department) {
-		this.department = department;
+	public void setDepartmentId(Long departmentId) {
+		this.departmentId = departmentId;
 	}
-	
+
 }

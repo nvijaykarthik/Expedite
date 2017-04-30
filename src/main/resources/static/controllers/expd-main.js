@@ -131,3 +131,80 @@ app.controller('departmentsController', function($scope,$http,$log,$httpParamSer
 	  };
 	 /** Pagination Ends**/
 });
+
+
+
+
+app.controller('teamController', function($scope,$http,$log,$httpParamSerializerJQLike) {
+	$scope.formData = {};
+	
+	var clearData=function(){
+		
+	}
+	var viewLead=function(){
+		
+	}
+	
+	var configTeamMember = function(){
+		
+	}
+	
+	$scope.edit=function(content){
+		
+	}
+	
+	$scope.save=function(){
+	$scope.resetPage();
+	 	 $http({
+            method  : 'POST',
+            url     : url,
+            data    : $scope.formData,
+            headers : {'Content-Type': 'application/json'}
+           }).then(
+                   function success(resp){
+                       $log.info(resp.data)
+                       $scope.refresh();
+                       $scope.showsucess=true;
+                       $scope.success=resp.data.message;
+                       $scope.formData = {};
+                    },
+                   function failure(resp){
+                   $log.error(resp.status)
+                    $scope.showerror=true;
+                    $scope.error=resp.data.message;
+                   });
+	}
+	
+	
+	
+	$scope.resetPage=function(){
+        $scope.showsucess=false;
+        $scope.showerror=false;
+        $scope.success="";
+        $scope.error="";
+    }
+	
+	$scope.reset=function(){
+    	$scope.search={};
+    	$scope.refresh();
+    }
+	
+	$scope.refresh = function(){
+	    $scope.resetPage();
+		    $http({
+		        method : "GET",
+		        url : url
+		    }).then(function success(response) {
+		    	$log.log(response.data.content)
+	             $scope.teamList = response.data;
+		    }, function failure(response) {
+		        $log.error(response.status)
+	             $scope.showerror=true;
+	             $scope.error=response.data.message;
+		    });
+	    }
+	
+	$scope.resetPage();
+    $scope.refresh();
+
+});

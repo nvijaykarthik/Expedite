@@ -1,7 +1,5 @@
 package in.expedite.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
@@ -10,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import in.expedite.entity.Department;
-import in.expedite.entity.User;
 import in.expedite.repository.DepartmentsRepository;
 import in.expedite.specification.SpecificationUtils;
 

@@ -29,6 +29,12 @@ app.config(function($routeProvider) {
   .when('/departments', {
     templateUrl : 'pages/Departments.html',
   })
+  .when('/team', {
+    templateUrl : 'pages/Team.html',
+  })
+   .when('/configuration', {
+    templateUrl : 'pages/Configuration.html',
+  })
   .otherwise({redirectTo: '/'});
 });
 

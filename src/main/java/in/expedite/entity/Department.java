@@ -2,17 +2,13 @@ package in.expedite.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Department {
@@ -30,8 +26,6 @@ public class Department {
 	@Column(nullable=true)
 	private String managerId;
     
-	@OneToMany(mappedBy="id")
-	private List<Team> teams = new ArrayList<>();
 	
 	public Long getId() {
 		return id;
@@ -48,8 +42,6 @@ public class Department {
 	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
 	}
-
-
 
 	public Long getParentDepartmentId() {
 		return parentDepartmentId;
@@ -72,13 +64,4 @@ public class Department {
 		return "Departments [id=" + id + ", departmentName=" + departmentName + ", parentDepartmentId="
 				+ parentDepartmentId + ", managerId=" + managerId + "]";
 	}
-
-	public List<Team> getTeams() {
-		return teams;
-	}
-
-	public void setTeams(List<Team> teams) {
-		this.teams = teams;
-	}
-
 }
