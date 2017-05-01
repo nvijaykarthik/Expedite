@@ -130,6 +130,36 @@ app.controller('departmentsController', function($scope,$http,$log,$httpParamSer
 	    $scope.refresh();
 	  };
 	 /** Pagination Ends**/
+	  
+	  $scope.viewManager=function(managerId){
+		  $http({
+		        method : "GET",
+		        url : url+"/manager?managerId="+managerId
+		    }).then(function success(response) {
+		    	$log.log(response.data.content)
+	             $scope.manager = response.data;
+		    	 $scope.manager['userName']=$scope.manager.firstName+" "+$scope.manager.secondName
+	    }, function failure(response) {
+		        $log.error(response.status)
+	             $scope.showerror=true;
+	             $scope.error=response.data.message;
+		    });
+	  }
+	  
+	  
+	  $scope.viewDept=function(deptId){
+		  $http({
+		        method : "GET",
+		        url : url+"/deptById?deptId="+deptId
+		    }).then(function success(response) {
+		    	$log.log(response.data.content)
+	             $scope.pdept = response.data;
+		    }, function failure(response) {
+		        $log.error(response.status)
+	             $scope.showerror=true;
+	             $scope.error=response.data.message;
+		    });
+	  }
 });
 
 

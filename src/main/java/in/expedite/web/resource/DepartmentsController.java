@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import in.expedite.entity.Department;
+import in.expedite.entity.User;
 import in.expedite.service.DepartmentsService;
+import in.expedite.service.UserService;
 import in.expedite.utils.ExJsonResponse;
 
 @RestController
@@ -16,7 +18,10 @@ import in.expedite.utils.ExJsonResponse;
 public class DepartmentsController {
 
 	@Autowired
-	DepartmentsService departmentService;
+	private DepartmentsService departmentService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(path="/pagable",method=RequestMethod.GET,produces="application/json")
 	public Iterable<Department> getDepartments(@RequestParam("p") Integer pageNo,@RequestParam(required=false) String departmentName,@RequestParam(required=false) String manager){
@@ -40,5 +45,15 @@ public class DepartmentsController {
 	public ExJsonResponse addDepartment(@RequestBody Department deps){
 		departmentService.addDepartment(deps);
 		return new ExJsonResponse(0,"Sucessfully Added");
+	}
+
+	@RequestMapping(path="/manager",method=RequestMethod.GET,produces="application/json")
+	public User getManager(@RequestParam String managerId){
+    	return userService.getUser(managerId);
+	}
+	
+	@RequestMapping(path="/deptById",method=RequestMethod.GET,produces="application/json")
+	public Department getDeptById(@RequestParam Long deptId){
+    	return departmentService.getDeptById(deptId);
 	}
 }

@@ -41,6 +41,10 @@ public class DepartmentsService {
 	public Iterable<Department> getDepartmentsByName(String deptName){
 		return departmentRepo.findByDepartmentNameContainingIgnoreCase(deptName);
 	}
+
+	public Department getDeptById(Long deptId) {
+		return departmentRepo.findById(deptId);
+	}
 	
 	
 }

@@ -29,7 +29,8 @@ var url="/resource/departments";
 <div class="col-md-3">
 	<div class="panel panel-info panel-dark">
 		<div class="panel-body">
-   		 <button class="btn btn-primary" ng-click="clearData()" data-toggle="modal" data-target="#newDeptModal"><span class=" fa fa-plus">&nbsp</span>Add New Department</button>
+   		 <button class="btn btn-primary" ng-click="clearData()" data-toggle="modal" data-target="#newDeptModal">
+   		 <span class=" fa fa-plus">&nbsp</span>Add New Department</button>
      	</div>
 	</div>
 </div>
@@ -55,8 +56,12 @@ var url="/resource/departments";
 					<tr ng-repeat="content in contentList | filter: searchKeyword ">
 							<td>{{$index}}</td>
 							<td>{{content.departmentName}}</td>
-							<td>{{content.parentDepartmentId}}</td>
-							<td>{{content.managerId}}</td>
+							<td>
+							<a data-toggle="modal" data-target="#parentDeptModal" ng-click="viewDept(content.parentDepartmentId)" ng-show="content.parentDepartmentId">
+							View Details</a>
+							</td>
+							<td><a data-toggle="modal" data-target="#managerModal" ng-click="viewManager(content.managerId)" ng-show="content.managerId">
+							View Details</a></td>
 							<td>
 							<button type="button" class="btn  btn-info btn-sm " ng-click="edit(content)" data-toggle="modal" data-target="#editDeptModal">
 							 <span class=" fa fa-pencil">&nbsp</span>
@@ -168,4 +173,78 @@ var url="/resource/departments";
 		</div>
 	  </div>
 	</div>
+	
+	
+	<!--  Manager model -->
+	<div class="modal fade bs-example-modal-lg" id="managerModal" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel">Manager  Details</h4>
+		  </div>
+		  <div class="modal-body">
+			 <div style="padding:15px;">
+		  <form class="form-horizontal">
+			<div class="form-group">
+				<label  class="control-label">User Id</label>
+				<div>
+					<input type="text" class="form-control" ng-model="manager.userId" readonly >
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label">User Name </label>
+				<div>
+					<input type="text" class="form-control"  ng-model="manager.userName" readonly >
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Email</label>
+				<div>
+					<input type="text" class="form-control"  ng-model="manager.email" readonly >
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Status</label>
+				<div>
+					<input type="text" class="form-control"  ng-model="manager.state" readonly >
+				</div>
+			</div>
+		</form>
+			  </div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+	<!-- Parent Department model -->
+	<div class="modal fade bs-example-modal-lg" id="parentDeptModal" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel">Parent Department</h4>
+		  </div>
+		  <div class="modal-body">
+			 <div style="padding:15px;">
+		  <form class="form-horizontal">
+			<div class="form-group">
+				<label  class="control-label">Department Name</label>
+				<div>
+					<input type="text" class="form-control" ng-model="pdept.departmentName" readonly >
+				</div>
+			</div>
+			</form>
+			  </div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
 </main>
