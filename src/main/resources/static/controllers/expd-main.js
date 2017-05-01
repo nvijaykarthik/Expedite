@@ -19,7 +19,9 @@ app.controller('departmentsController', function($scope,$http,$log,$httpParamSer
 	if(typeof $scope.departObj !== 'undefined'){
 		$scope.formData['parentDepartmentId']= $scope.departObj.originalObject.id;
 	}
-	$scope.formData['managerId']=$scope.managerObj.originalObject.userId;
+	if(typeof $scope.managerObj !== 'undefined'){
+		$scope.formData['managerId']=$scope.managerObj.originalObject.userId;
+	}
    	 $http({
             method  : 'POST',
             url     : url,
@@ -134,7 +136,7 @@ app.controller('departmentsController', function($scope,$http,$log,$httpParamSer
 	  $scope.viewManager=function(managerId){
 		  $http({
 		        method : "GET",
-		        url : url+"/manager?managerId="+managerId
+		        url : "/resource/users/manager?managerId="+managerId
 		    }).then(function success(response) {
 		    	$log.log(response.data.content)
 	             $scope.manager = response.data;
@@ -167,24 +169,75 @@ app.controller('departmentsController', function($scope,$http,$log,$httpParamSer
 
 app.controller('teamController', function($scope,$http,$log,$httpParamSerializerJQLike) {
 	$scope.formData = {};
+	$scope.memberData = {};
+
+	$scope.deleteTeamMember=function(member){
+		$http({
+            method  : 'DELETE',
+            url     : url+"/members?userId="+member.userId+"&teamId="+$scope.selectedTeamId
+           }).then(
+                   function success(resp){
+                       $log.info(resp.data);
+                       alert(resp.data.message);
+                       $scope.getTeamMembers($scope.selectedTeamId);
+                    },
+                   function failure(resp){
+                    $log.error(resp.status)
+                    alert(resp.data.message);
+                   });
+	}
 	
-	var clearData=function(){
-		
-	}
-	var viewLead=function(){
-		
+	
+	$scope.saveTeamMember = function(){
+	
+		$scope.memberData['teamId']=$scope.selectedTeamId;
+		$scope.memberData['userId']= $scope.memberObj.originalObject.userId;
+
+		$http({
+            method  : 'POST',
+            url     : url+"/addMember",
+            data    : $scope.memberData,
+            headers : {'Content-Type': 'application/json'}
+           }).then(
+                   function success(resp){
+                       $log.info(resp.data)
+                       $scope.getTeamMembers($scope.selectedTeamId);
+                       alert(resp.data.message);
+                       $scope.memberData = {};
+                    },
+                   function failure(resp){
+                   $log.error(resp.status)
+                   alert(resp.data.message);
+                   });
 	}
 	
-	var configTeamMember = function(){
-		
+	$scope.getTeamMembers = function(teamId){
+		$scope.selectedTeamId=teamId;
+		$http({
+            method  : 'GET',
+            url     : url+"/members?teamId="+teamId
+           }).then(
+                   function success(resp){
+                       $log.info(resp.data)
+                       $scope.memberList = resp.data;
+                    },
+                   function failure(resp){
+                    $log.error(resp.status)
+                    $scope.showerror=true;
+                    $scope.error=resp.data.message;
+                   });
 	}
 	
-	$scope.edit=function(content){
-		
-	}
 	
 	$scope.save=function(){
 	$scope.resetPage();
+	
+	if(typeof $scope.departObj !== 'undefined'){
+		$scope.formData['departmentId']= $scope.departObj.originalObject.id;
+	}
+	if(typeof $scope.managerObj !== 'undefined'){
+	$scope.formData['managerId']=$scope.managerObj.originalObject.userId;
+	}
 	 	 $http({
             method  : 'POST',
             url     : url,
@@ -237,4 +290,18 @@ app.controller('teamController', function($scope,$http,$log,$httpParamSerializer
 	$scope.resetPage();
     $scope.refresh();
 
+    $scope.viewManager=function(managerId){
+		  $http({
+		        method : "GET",
+		        url : "/resource/users/manager?managerId="+managerId
+		    }).then(function success(response) {
+		    	$log.log(response.data.content)
+	             $scope.manager = response.data;
+		    	 $scope.manager['userName']=$scope.manager.firstName+" "+$scope.manager.secondName
+	    }, function failure(response) {
+		        $log.error(response.status)
+	             $scope.showerror=true;
+	             $scope.error=response.data.message;
+		    });
+	  }
 });

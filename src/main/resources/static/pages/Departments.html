@@ -54,13 +54,13 @@ var url="/resource/departments";
 					<tbody>
 					<input type="text" ng-model="searchKeyword" class="form-control ng-valid ng-dirty" id="searchTable" placeholder="Search table"/>
 					<tr ng-repeat="content in contentList | filter: searchKeyword ">
-							<td>{{$index}}</td>
+							<td>{{$index+1}}</td>
 							<td>{{content.departmentName}}</td>
 							<td>
-							<a data-toggle="modal" data-target="#parentDeptModal" ng-click="viewDept(content.parentDepartmentId)" ng-show="content.parentDepartmentId">
+							<a href data-toggle="modal" data-target="#parentDeptModal" ng-click="viewDept(content.parentDepartmentId)" ng-show="content.parentDepartmentId">
 							View Details</a>
 							</td>
-							<td><a data-toggle="modal" data-target="#managerModal" ng-click="viewManager(content.managerId)" ng-show="content.managerId">
+							<td><a href data-toggle="modal" data-target="#managerModal" ng-click="viewManager(content.managerId)" ng-show="content.managerId">
 							View Details</a></td>
 							<td>
 							<button type="button" class="btn  btn-info btn-sm " ng-click="edit(content)" data-toggle="modal" data-target="#editDeptModal">
@@ -214,7 +214,7 @@ var url="/resource/departments";
 			  </div>
 		  </div>
 		  <div class="modal-footer">
-			<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		  </div>
 		</div>
 	  </div>
@@ -241,7 +241,7 @@ var url="/resource/departments";
 			  </div>
 		  </div>
 		  <div class="modal-footer">
-			<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		  </div>
 		</div>
 	  </div>

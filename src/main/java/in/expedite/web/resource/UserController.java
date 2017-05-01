@@ -100,4 +100,9 @@ public class UserController {
 	public List<Role> getRolesForUser(@Valid @RequestParam String userId){
 		return userService.getActiveRolesForUser(userId);
 	}
+	
+	@RequestMapping(path="/manager",method=RequestMethod.GET,produces="application/json")
+	public User getManager(@RequestParam String managerId){
+    	return userService.getUser(managerId);
+	}
 }
