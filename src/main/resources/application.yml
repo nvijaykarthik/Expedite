@@ -6,5 +6,7 @@ logging:
 vijay:
   error-code-mapping:
     java.lang.IllegalArgumentException: 401
+    io.vijaykarthik.exception.CustomException: 402
   error-message-mapping:
     java.lang.IllegalArgumentException: Invalid Input
+    io.vijaykarthik.exception.CustomException: Custome error message

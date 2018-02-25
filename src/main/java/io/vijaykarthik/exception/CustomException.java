@@ -1,6 +1,6 @@
 package io.vijaykarthik.exception;
 
-public class CustomException extends Throwable{
+public class CustomException extends Exception{
 
 	/**
 	 * 
