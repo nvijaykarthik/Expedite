@@ -20,7 +20,7 @@ public class ExceptionControllerAdvice {
 	ExceptionMapping mapping;
 
 	@ExceptionHandler(Throwable.class)
-	public ResponseEntity<ExceptionMessage> exceptionHandler(Exception ex) {
+	public ResponseEntity<ExceptionMessage> exceptionHandler(Throwable ex) {
 
 		Class<? extends Throwable> clazz = ex.getClass();
 
