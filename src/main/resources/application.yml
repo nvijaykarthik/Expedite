@@ -1,0 +1,10 @@
+logging:
+  level:
+    io.vijaykarthik : DEBUG
+    org.springframework: INFO
+    
+vijay:
+  error-code-mapping:
+    java.lang.IllegalArgumentException: 401
+  error-message-mapping:
+    java.lang.IllegalArgumentException: Invalid Input
